@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "ezea",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["_build/serve.js"],
+      "port": 4321
+    }
+  ]
+}

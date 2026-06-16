@@ -1,0 +1,11 @@
+# Dependencies (outil de build images — réinstallables via npm install)
+_build/node_modules/
+
+# OS / éditeurs
+.DS_Store
+Thumbs.db
+*.log
+
+# Artefacts temporaires de preview
+_build/check-*.png
+_build/*.tmp
