@@ -1,4 +1,5 @@
-# Dependencies (outil de build images — réinstallables via npm install)
+# Dependencies
+node_modules/
 _build/node_modules/
 
 # OS / éditeurs
@@ -9,3 +10,10 @@ Thumbs.db
 # Artefacts temporaires de preview
 _build/check-*.png
 _build/*.tmp
+
+# Vercel
+.vercel
+
+# Secrets
+.env
+.env.local

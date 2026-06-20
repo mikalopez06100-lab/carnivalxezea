@@ -21,8 +21,9 @@ async function keyLogo(srcFile, outFile, color, maxW) {
     data[i + 3] = a;
   }
   await sharp(data, { raw: { width, height, channels } })
-    .png({ compressionLevel: 9 }).toFile(OUT + outFile);
-  console.log('logo  ', outFile, width + 'x' + height);
+    .png({ compressionLevel: 9 }).trim().toFile(OUT + outFile);
+  const m = await sharp(OUT + outFile).metadata();
+  console.log('logo  ', outFile, m.width + 'x' + m.height);
 }
 
 // ── Sculpture: knock out the white studio background ──

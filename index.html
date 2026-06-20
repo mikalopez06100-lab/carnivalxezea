@@ -44,7 +44,9 @@ body{
   overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
 }
-img{display:block;max-width:100%;}
+img{display:block;max-width:100%;height:auto;}
+/* Logos & tampons — toujours conserver le ratio natif */
+.img-logo,.img-stamp{width:auto;max-width:100%;object-fit:contain;}
 a{text-decoration:none;color:inherit;}
 button{font-family:inherit;cursor:pointer;}
 
@@ -118,24 +120,35 @@ img[src=""],img:not([src]){min-height:1px;}
   background:rgba(10,10,10,0.96);
   border-bottom:1px solid rgba(255,255,255,0.05);
 }
-#nav .nav-logo{height:28px;}
+#nav .nav-logo{height:46px;width:auto;}
 .nav-right{display:flex;align-items:center;gap:20px;}
 
 /* Bouton son */
 #sound-btn{
-  background:none;border:none;width:28px;height:28px;
-  color:rgba(255,255,255,0.4);
+  position:relative;
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.35);
+  width:auto;height:40px;
+  padding:0 14px;gap:8px;
+  color:var(--white);
   display:flex;align-items:center;justify-content:center;
-  transition:color .25s;
+  font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:.08em;
+  transition:color .25s,border-color .25s,background .25s;
 }
-#sound-btn.on{color:var(--accent);}
+#sound-btn.on{
+  color:var(--accent);
+  border-color:var(--accent);
+  background:rgba(245,200,0,0.12);
+}
+#sound-btn.off{color:rgba(255,255,255,0.75);}
 #sound-btn.on .wave-arc{animation:wavePulse 1.4s ease-in-out infinite;}
 #sound-btn.on .wave-arc:nth-child(2){animation-delay:.18s;}
 #sound-btn.on .wave-arc:nth-child(3){animation-delay:.36s;}
 @keyframes wavePulse{0%,100%{opacity:.4;transform:scale(.9);}50%{opacity:1;transform:scale(1.05);}}
 #sound-btn .wave-slash{display:none;}
 #sound-btn.off .wave-slash{display:block;}
-#sound-btn svg{width:24px;height:24px;overflow:visible;}
+#sound-btn svg{width:20px;height:20px;overflow:visible;flex-shrink:0;}
+#sound-btn .sound-label{white-space:nowrap;}
 #sound-btn.disabled{opacity:.3;pointer-events:none;}
 
 /* Bouton réserver nav */
@@ -146,6 +159,73 @@ img[src=""],img:not([src]){min-height:1px;}
   transition:background .25s ease,opacity .25s ease;
 }
 .btn-reserve:hover{opacity:.85;}
+
+/* ── PANIER ── */
+#cart-btn{
+  position:relative;background:none;border:1px solid rgba(255,255,255,0.25);
+  color:var(--white);font-family:'Space Mono',monospace;font-size:.7rem;
+  letter-spacing:.08em;padding:10px 16px;display:flex;align-items:center;gap:8px;
+  transition:border-color .2s,color .2s;
+}
+#cart-btn:hover{border-color:var(--accent);color:var(--accent);}
+#cart-count{
+  display:none;align-items:center;justify-content:center;
+  min-width:18px;height:18px;padding:0 5px;border-radius:9px;
+  background:var(--accent);color:var(--black);font-size:.6rem;font-weight:700;
+}
+#cart-overlay{
+  position:fixed;inset:0;z-index:850;background:rgba(0,0,0,0.6);
+  opacity:0;pointer-events:none;transition:opacity .25s;
+}
+#cart-overlay.open{opacity:1;pointer-events:all;}
+#cart-drawer{
+  position:fixed;top:0;right:0;z-index:900;width:min(420px,100vw);height:100vh;
+  background:var(--gris-chaud);border-left:1px solid rgba(255,255,255,0.08);
+  transform:translateX(100%);transition:transform .3s ease;
+  display:flex;flex-direction:column;padding:28px 24px;
+}
+#cart-drawer.open{transform:translateX(0);}
+.cart-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;}
+.cart-head h3{font-family:'Bebas Neue',sans-serif;font-size:2rem;font-weight:400;}
+.cart-close{background:none;border:none;color:rgba(255,255,255,0.5);font-size:1.6rem;line-height:1;}
+.cart-items{flex:1;overflow-y:auto;margin-bottom:20px;}
+.cart-item{
+  display:flex;justify-content:space-between;gap:12px;padding:16px 0;
+  border-bottom:1px solid rgba(255,255,255,0.07);
+}
+.cart-item-info{display:flex;flex-direction:column;gap:4px;}
+.cart-item-info strong{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.04em;}
+.cart-item-info span{font-size:.78rem;color:rgba(255,255,255,0.45);}
+.cart-item-right{display:flex;align-items:flex-start;gap:10px;}
+.cart-item-price{font-family:'Space Mono',monospace;font-size:.85rem;font-weight:700;}
+.cart-remove{background:none;border:none;color:rgba(255,255,255,0.4);font-size:1.2rem;line-height:1;}
+.cart-empty{font-size:.85rem;color:rgba(255,255,255,0.4);text-align:center;padding:40px 0;}
+.cart-field{
+  width:100%;background:var(--black);border:1px solid rgba(255,255,255,0.1);
+  color:var(--white);font-family:'Inter',sans-serif;font-size:.88rem;
+  padding:12px 14px;margin-bottom:12px;outline:none;
+}
+.cart-field:focus{border-color:var(--accent);}
+.cart-total-row{
+  display:flex;justify-content:space-between;align-items:center;
+  font-family:'Space Mono',monospace;font-size:.8rem;margin-bottom:14px;
+}
+.cart-total-row strong{font-size:1.1rem;color:var(--accent);}
+#cart-checkout{
+  width:100%;background:var(--accent);color:var(--black);border:none;
+  font-family:'Space Mono',monospace;font-size:.8rem;font-weight:700;
+  letter-spacing:.1em;padding:16px;transition:opacity .2s;
+}
+#cart-checkout:disabled{opacity:.5;cursor:not-allowed;}
+#cart-error{font-size:.75rem;color:var(--rose);min-height:1.2em;margin-bottom:8px;}
+#checkout-banner{
+  display:none;position:fixed;top:80px;left:50%;transform:translateX(-50%);z-index:600;
+  max-width:min(560px,92vw);padding:14px 20px;text-align:center;
+  font-family:'Space Mono',monospace;font-size:.72rem;letter-spacing:.04em;
+  background:var(--vert);color:var(--black);
+}
+#checkout-banner.show{display:block;}
+#checkout-banner.warn{background:var(--jaune);}
 
 /* ══════════════════════════════════════════════════════════
    SECTION: HERO
@@ -178,10 +258,7 @@ img[src=""],img:not([src]){min-height:1px;}
   line-height:.92;margin-bottom:28px;font-weight:400;
 }
 .hero-text h1 .l1{color:var(--white);display:block;}
-.hero-text h1 .l2{display:block;animation:colorCycle 8s steps(1,end) infinite;}
-@keyframes colorCycle{
-  0%{color:#00BFFF;}25%{color:#5FD12A;}50%{color:#F5C800;}75%{color:#FF1493;}100%{color:#00BFFF;}
-}
+.hero-text h1 .l2{display:block;color:#00BFFF;transition:none;}
 .hero-sub{
   font-weight:300;font-size:1rem;color:rgba(255,255,255,0.55);
   max-width:400px;line-height:1.75;margin-bottom:40px;
@@ -197,20 +274,52 @@ img[src=""],img:not([src]){min-height:1px;}
 @keyframes arrowBob{0%,100%{transform:translateY(0);}50%{transform:translateY(4px);}}
 
 .hero-sculpt-wrap{position:relative;display:inline-block;}
-#drip-jaune{
-  width:100%;max-width:380px;object-fit:contain;z-index:2;position:relative;
+.sculpture-carousel{
+  overflow:hidden;background:#fff;border-radius:2px;
+  max-width:min(380px,100%);margin:0 auto;
+}
+.hero-carousel{
+  position:relative;z-index:2;
   will-change:transform;
-  filter:drop-shadow(0 30px 40px rgba(0,0,0,0.55));
   animation:float 5s ease-in-out infinite;
 }
-#drip-jaune[src=""],#drip-jaune:not([src]){aspect-ratio:2/5;}
+.hero-sculpture-stage{
+  position:relative;
+  display:flex;align-items:center;justify-content:center;
+}
+.hero-sculpture-img{
+  display:block;width:auto;height:auto;
+  max-width:100%;max-height:min(62vh,520px);
+  object-fit:contain;margin:0 auto;
+  transition:opacity .4s ease;
+}
+.hero-sculpture-img.is-back{
+  position:absolute;inset:0;margin:auto;
+  opacity:0;pointer-events:none;
+}
+.hero-sculpture-img.is-front{opacity:1;}
+.sculpture-carousel-track{
+  display:flex;
+  transition:transform .4s cubic-bezier(.4,0,.2,1);
+}
+.sculpture-slide{
+  flex:0 0 100%;min-width:0;
+  display:flex;align-items:center;justify-content:center;
+  padding:12px 16px;
+}
+.sculpture-slide img{
+  width:auto;height:auto;max-width:100%;
+  max-height:min(62vh,520px);object-fit:contain;
+}
+#series .sculpture-carousel{max-width:min(400px,100%);}
+#series .sculpture-slide img{max-height:min(58vh,480px);}
 @keyframes float{
   0%,100%{transform:translateY(0) rotateY(-3deg);}
   50%{transform:translateY(-12px) rotateY(3deg);}
 }
 #stamp-joey.hero-stamp{
   position:absolute;bottom:-10px;right:-20px;
-  width:130px;z-index:3;
+  width:130px;height:auto;z-index:3;
   transform:rotate(-12deg);
   animation:stampIn .45s cubic-bezier(0.34,1.56,0.64,1) 2s both;
 }
@@ -272,18 +381,9 @@ img[src=""],img:not([src]){min-height:1px;}
 .series-left{flex:0 0 52%;}
 .series-right{flex:0 0 44%;}
 
-/* gallery cachée : sources des 16 sculptures (chaque id présent 1x) */
-.sculpture-gallery{display:none;}
+/* gallery cachée : supprimée — photos sur fond blanc + carrousel */
 
 .sculpture-display-wrap{text-align:center;}
-#sculpture-active{
-  max-width:320px;width:100%;margin:0 auto;object-fit:contain;
-  display:block;
-  filter:drop-shadow(0 24px 34px rgba(0,0,0,0.5));
-  transition:opacity .35s ease;
-}
-#sculpture-active[src=""],#sculpture-active:not([src]){aspect-ratio:2/5;}
-#sculpture-active.fading{opacity:0;}
 
 .swatches{display:flex;gap:12px;justify-content:center;margin-top:24px;}
 .swatch{
@@ -318,7 +418,7 @@ img[src=""],img:not([src]){min-height:1px;}
 }
 .series-specs .k{color:rgba(255,255,255,0.35);}
 .series-specs .v{color:var(--white);}
-#series .spec-stamp{width:80px;transform:rotate(-8deg);opacity:.85;margin-top:0;margin-bottom:24px;}
+#series .spec-stamp{width:80px;height:auto;transform:rotate(-8deg);opacity:.85;margin-top:0;margin-bottom:24px;}
 .cta-series{
   background:var(--accent);color:var(--black);border:none;
   padding:16px 36px;display:inline-flex;align-items:baseline;gap:12px;
@@ -383,7 +483,10 @@ img[src=""],img:not([src]){min-height:1px;}
 .piece-legend .lg-sel{background:var(--accent);border-color:var(--accent);}
 .piece-legend .lg-taken{background:repeating-linear-gradient(-45deg,rgba(255,255,255,0.18) 0 4px,transparent 4px 8px);}
 .piece-soldout{color:var(--rose);font-weight:700;}
-.piece-model-off{
+.piece-grid.preview .piece-cell:hover{
+  transform:none;border-color:rgba(255,255,255,0.18);
+}
+.piece-grid.preview .piece-cell.taken:hover{border-color:rgba(255,255,255,0.07);}
   text-align:center;font-family:'Space Mono',monospace;font-size:.8rem;
   color:rgba(255,255,255,0.4);padding:30px 0;
 }
@@ -394,7 +497,7 @@ img[src=""],img:not([src]){min-height:1px;}
 #admin-link{
   position:fixed;bottom:10px;left:12px;z-index:600;
   font-family:'Space Mono',monospace;font-size:.55rem;letter-spacing:.15em;
-  color:rgba(255,255,255,0.12);background:none;border:none;padding:6px;
+  color:rgba(255,255,255,0.12);padding:6px;text-decoration:none;
 }
 #admin-link:hover{color:rgba(255,255,255,0.5);}
 #admin{
@@ -459,16 +562,19 @@ img[src=""],img:not([src]){min-height:1px;}
   border-top:1px solid rgba(255,255,255,0.05);
   display:flex;
 }
-.joey-img-col{flex:1;min-height:600px;overflow:hidden;}
-#photo-joey{width:100%;height:100%;min-height:600px;object-fit:cover;object-position:center top;}
+.joey-img-col{flex:1;min-height:520px;position:relative;overflow:hidden;}
+#photo-joey{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center top;
+}
 .joey-text-col{
   flex:1;padding:60px 48px;
   display:flex;flex-direction:column;justify-content:center;
 }
 .joey-logos{display:flex;flex-direction:column;align-items:flex-start;margin-bottom:32px;}
-#logo-carnival{height:42px;}
+#logo-carnival{height:48px;width:auto;}
 .joey-x{font-weight:300;font-size:1.2rem;color:rgba(255,255,255,0.3);margin:8px 0;}
-#logo-ezea{height:36px;}
+#logo-ezea{height:40px;width:auto;}
 .joey-text-col h2{
   font-family:'Bebas Neue',sans-serif;font-size:2.2rem;line-height:1.1;
   color:var(--white);margin-bottom:24px;font-weight:400;
@@ -477,7 +583,7 @@ img[src=""],img:not([src]){min-height:1px;}
   font-weight:300;font-size:.95rem;color:rgba(255,255,255,0.6);
   line-height:1.9;margin-bottom:32px;white-space:pre-line;
 }
-#signature-joey{height:50px;}
+#signature-joey{max-width:220px;width:100%;height:auto;}
 
 /* ══════════════════════════════════════════════════════════
    SECTION: RARÉFACTION
@@ -587,19 +693,46 @@ img[src=""],img:not([src]){min-height:1px;}
   font-size:.75rem;color:rgba(255,255,255,0.3);
   margin-top:-8px;margin-bottom:16px;
 }
-#modal-submit{
   width:100%;background:var(--accent);color:var(--black);
   font-family:'Space Mono',monospace;font-size:.85rem;font-weight:700;
   letter-spacing:.1em;text-transform:uppercase;
   padding:18px;border:none;margin-top:8px;transition:opacity .25s;
 }
-#modal-submit:hover{opacity:.85;}
+.modal-btn:hover{opacity:.85;}
+.modal-btn:disabled{opacity:.45;cursor:not-allowed;}
+.modal-btn-secondary{
+  width:auto;background:none;color:rgba(255,255,255,0.55);
+  border:none;font-family:'Space Mono',monospace;font-size:.68rem;
+  letter-spacing:.08em;padding:0 0 16px;margin:0;
+  text-transform:uppercase;
+}
+.modal-btn-secondary:hover{color:var(--white);}
+.modal-swatches{display:flex;gap:12px;justify-content:center;margin:20px 0 8px;}
+.modal-swatches .swatch{cursor:pointer;}
+.modal-color-label{
+  font-family:'Space Mono',monospace;font-size:.65rem;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(255,255,255,0.45);margin-bottom:8px;
+}
+#modal-piece-grid{max-width:100%;gap:8px;margin-top:16px;}
+#modal-piece-grid .piece-cell{font-size:.88rem;}
+.cart-textarea{resize:vertical;min-height:72px;line-height:1.5;}
+.cart-shipping-row{
+  display:flex;justify-content:space-between;align-items:center;
+  font-family:'Space Mono',monospace;font-size:.72rem;
+  color:rgba(255,255,255,0.5);margin:4px 0 12px;
+}
+.cart-shipping-row strong{color:var(--accent);font-weight:700;}
+.shipping-note{
+  font-size:.72rem;color:rgba(255,255,255,0.4);
+  line-height:1.5;margin:-4px 0 12px;
+}
 
 #modal-success{
   display:none;flex-direction:column;align-items:center;text-align:center;
 }
 #modal-success.show{display:flex;}
-#modal-success .success-stamp{width:110px;animation:stampSuccess .5s cubic-bezier(0.34,1.56,0.64,1) forwards;}
+#modal-success .success-stamp{width:110px;height:auto;animation:stampSuccess .5s cubic-bezier(0.34,1.56,0.64,1) forwards;}
 @keyframes stampSuccess{
   0%{transform:scale(3);opacity:0;}
   60%{transform:scale(.88);opacity:1;}
@@ -669,7 +802,7 @@ img[src=""],img:not([src]){min-height:1px;}
   gap:40px;max-width:1200px;margin:0 auto;
 }
 .footer-col1{flex:1;}
-#footer .footer-logo{height:32px;margin-bottom:14px;}
+#footer .footer-logo{height:38px;width:auto;margin-bottom:14px;}
 .footer-tag{font-weight:300;font-size:.8rem;color:rgba(255,255,255,0.3);line-height:1.7;white-space:pre-line;}
 .footer-col2{flex:1;text-align:center;}
 .footer-col2 a{
@@ -721,19 +854,25 @@ body.cursor-hover #cursor-ring{transform:scale(1.5);border-color:var(--accent);b
   .series-left,.series-right{flex:1 1 100%;width:100%;}
   #joey{flex-direction:column;}
   .joey-img-col{min-height:0;}
-  #photo-joey{height:auto;min-height:0;aspect-ratio:4/3;}
+  .joey-img-col{min-height:0;aspect-ratio:4/5;}
 }
 @media(max-width:768px){
   #nav{padding:14px 20px;}
-  #sound-btn{display:none;}
+  #nav .nav-logo{height:38px;}
+  .nav-right{gap:10px;}
+  #sound-btn{
+    min-width:44px;min-height:44px;
+    padding:0 12px;font-size:.62rem;
+  }
+  #sound-btn svg{width:18px;height:18px;}
   .btn-reserve{padding:10px 16px;font-size:.7rem;}
   .hero-inner{flex-direction:column-reverse;padding:80px 20px 60px;gap:30px;}
-  #drip-jaune{max-width:260px;}
+  .hero-carousel,.sculpture-carousel{max-width:260px;}
+  #series .sculpture-carousel{max-width:220px;}
   #stamp-joey.hero-stamp{width:85px;}
   .stats-row{display:grid;grid-template-columns:1fr 1fr;gap:28px;}
   .stat-sep{display:none;}
   #series{padding:80px 20px;}
-  #sculpture-active{max-width:220px;}
   .joey-text-col{padding:40px 24px;}
   .cta-series{width:100%;justify-content:center;}
   .piece-grid{gap:8px;}
@@ -776,18 +915,22 @@ body.cursor-hover #cursor-ring{transform:scale(1.5);border-color:var(--accent);b
 <!-- ════════════ SECTION: NAV ════════════ -->
 <nav id="nav">
   <a href="#hero" aria-label="Accueil">
-    <img id="logo-collab" class="nav-logo" src="assets/logo-collab.png" alt="Carnival × Ezéa" />
+    <img id="logo-collab" class="nav-logo img-logo" src="assets/logo-collab.png" alt="Carnival × Ezéa" />
   </a>
   <div class="nav-right">
-    <button id="sound-btn" class="off disabled" title="Musique à venir" aria-label="Activer le son">
-      <svg viewBox="0 0 24 24" fill="none">
+    <button id="sound-btn" class="on" title="Couper la musique — B.O.S.S" aria-label="Couper le son">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <path class="wave-arc" d="M9 8 a6 6 0 0 1 0 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
         <path class="wave-arc" d="M12 5 a10 10 0 0 1 0 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
         <path class="wave-arc" d="M15 3 a14 14 0 0 1 0 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
         <line class="wave-slash" x1="3" y1="3" x2="21" y2="21" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
       </svg>
+      <span class="sound-label">SON</span>
     </button>
-    <button class="btn-reserve" data-open-modal="">Réserver — 250€</button>
+    <button id="cart-btn" type="button" aria-label="Panier">
+      PANIER <span id="cart-count">0</span>
+    </button>
+    <button class="btn-reserve" id="btn-add-cart" type="button">Ajouter au panier</button>
   </div>
 </nav>
 
@@ -806,8 +949,13 @@ body.cursor-hover #cursor-ring{transform:scale(1.5);border-color:var(--accent);b
     </div>
     <div class="hero-visual">
       <div class="hero-sculpt-wrap">
-        <img id="drip-jaune" src="assets/drip-jaune.png" alt="Sculpture DRIP jaune" />
-        <img id="stamp-joey" class="hero-stamp" src="assets/stamp-joey.png" alt="Approved by JoeyStarr" />
+        <div class="sculpture-carousel hero-carousel" id="hero-carousel" aria-label="Série DRIP — CYAN">
+          <div class="hero-sculpture-stage">
+            <img id="hero-sculpture-a" class="hero-sculpture-img is-front" src="assets/drip-cyan.png" alt="DRIP CYAN" />
+            <img id="hero-sculpture-b" class="hero-sculpture-img is-back" src="assets/drip-cyan.png" alt="" aria-hidden="true" />
+          </div>
+        </div>
+        <img id="stamp-joey" class="hero-stamp img-stamp" src="assets/stamp-joey.png" alt="Approved by JoeyStarr" />
       </div>
     </div>
   </div>
@@ -845,7 +993,9 @@ body.cursor-hover #cursor-ring{transform:scale(1.5);border-color:var(--accent);b
       <!-- COLONNE GAUCHE -->
       <div class="series-left reveal">
         <div class="sculpture-display-wrap">
-          <img id="sculpture-active" src="assets/drip-jaune.png" alt="Sculpture sélectionnée" />
+          <div class="sculpture-carousel" id="series-carousel" aria-live="polite" aria-label="Couleurs de la série">
+            <div class="sculpture-carousel-track" id="series-carousel-track"></div>
+          </div>
           <div class="swatches">
             <button class="swatch" data-color="cyan" aria-label="Cyan"></button>
             <button class="swatch" data-color="vert" aria-label="Vert"></button>
@@ -866,22 +1016,22 @@ body.cursor-hover #cursor-ring{transform:scale(1.5);border-color:var(--accent);b
           <span class="k">ÉDITION</span><span class="v">25 pièces numérotées</span>
           <span class="k">ORIGINE</span><span class="v">Fabriquée en France</span>
         </div>
-        <img class="spec-stamp" src="assets/stamp-joey.png" alt="Approved by JoeyStarr" />
+        <img class="spec-stamp img-stamp" src="assets/stamp-joey.png" alt="Approved by JoeyStarr" />
         <br/>
-        <button class="cta-series" id="cta-series">
-          <span class="lbl">Réserver cette série</span><span class="price">250€</span>
+        <button class="cta-series" id="cta-series" type="button">
+          <span class="lbl">Ajouter au panier</span><span class="price">250€</span>
         </button>
       </div>
     </div>
 
-    <!-- ── SÉLECTEUR DE NUMÉRO (grille loto) ── -->
+    <!-- ── APERÇU DISPONIBILITÉ NUMÉROS ── -->
     <div class="piece-section reveal">
       <div class="piece-head">
         <p class="eyebrow">VOTRE PIÈCE NUMÉROTÉE · 1 — 25</p>
-        <h3 class="piece-title">CHOISISSEZ VOTRE NUMÉRO</h3>
-        <p class="piece-sub" id="piece-sub">Sélectionnez un numéro disponible</p>
+        <h3 class="piece-title">DISPONIBILITÉ DES NUMÉROS</h3>
+        <p class="piece-sub" id="piece-sub">Cliquez « Ajouter au panier » pour choisir votre numéro</p>
       </div>
-      <div class="piece-grid" id="piece-grid"><!-- 25 cases injectées en JS --></div>
+      <div class="piece-grid preview" id="piece-grid"><!-- 25 cases injectées en JS --></div>
       <div class="piece-legend">
         <span><i class="lg lg-free"></i> Disponible</span>
         <span><i class="lg lg-sel"></i> Votre choix</span>
@@ -890,25 +1040,6 @@ body.cursor-hover #cursor-ring{transform:scale(1.5);border-color:var(--accent);b
       </div>
     </div>
 
-    <!-- Gallery cachée : sources des 16 sculptures (chaque id présent exactement 1 fois,
-         drip-jaune étant dans le hero) -->
-    <div class="sculpture-gallery" aria-hidden="true">
-      <img id="drip-cyan"   src="assets/drip-cyan.png"   alt="DRIP cyan" />
-      <img id="drip-vert"   src="assets/drip-jaune.png"  alt="DRIP vert" />
-      <img id="drip-rose"   src="assets/drip-cyan.png"   alt="DRIP rose" />
-      <img id="splash-cyan" src="assets/splash-cyan.png" alt="SPLASH cyan" />
-      <img id="splash-vert" src="assets/splash-vert.png" alt="SPLASH vert" />
-      <img id="splash-jaune" src="assets/splash-jaune.png" alt="SPLASH jaune" />
-      <img id="splash-rose" src="assets/splash-rose.png" alt="SPLASH rose" />
-      <img id="brush-cyan"  src="assets/brush-cyan.png"  alt="BRUSH cyan" />
-      <img id="brush-vert"  src="assets/brush-cyan.png"  alt="BRUSH vert" />
-      <img id="brush-jaune" src="assets/brush-cyan.png"  alt="BRUSH jaune" />
-      <img id="brush-rose"  src="assets/brush-cyan.png"  alt="BRUSH rose" />
-      <img id="spin-cyan"   src="assets/spin-rose.png"   alt="SPIN cyan" />
-      <img id="spin-vert"   src="assets/spin-rose.png"   alt="SPIN vert" />
-      <img id="spin-jaune"  src="assets/spin-rose.png"   alt="SPIN jaune" />
-      <img id="spin-rose"   src="assets/spin-rose.png"   alt="SPIN rose" />
-    </div>
   </div>
 </section>
 
@@ -919,9 +1050,9 @@ body.cursor-hover #cursor-ring{transform:scale(1.5);border-color:var(--accent);b
   </div>
   <div class="joey-text-col">
     <div class="joey-logos reveal">
-      <img id="logo-carnival" src="assets/logo-carnival.png" alt="Carnival" loading="lazy" />
+      <img id="logo-carnival" class="img-logo" src="assets/logo-carnival.png" alt="Carnival" loading="lazy" />
       <span class="joey-x">×</span>
-      <img id="logo-ezea" src="assets/logo-ezea.png" alt="Ezéa" loading="lazy" />
+      <img id="logo-ezea" class="img-logo" src="assets/logo-ezea.png" alt="Ezéa" loading="lazy" />
     </div>
     <h2 class="reveal">JoeyStarr × Ezéa<br/>pour Carnival Sun Juice</h2>
     <p class="joey-body reveal">Cette création est le fruit d'une rencontre artistique entre Ezea et JoeyStarr, réunis autour de l'univers vibrant de Carnival.
@@ -929,8 +1060,8 @@ body.cursor-hover #cursor-ring{transform:scale(1.5);border-color:var(--accent);b
 Un objet qui capture l'énergie brute de l'artiste et le geste coloré d'Ezea, pour prolonger l'esprit Sun Juice jusque dans la matière.
 
 Un symbole rare de fête, de liberté et de créativité.</p>
-    <img id="signature-joey" class="reveal" src="assets/signature-joey.png" alt="Signature JoeyStarr" loading="lazy" />
-    <img id="logo-sunjuice" class="reveal" src="assets/logo-sunjuice.png" alt="Sun Juice" loading="lazy" style="height:30px;margin-top:24px;opacity:.7;" />
+    <img id="signature-joey" class="img-logo reveal" src="assets/signature-joey.png" alt="Signature JoeyStarr" loading="lazy" />
+    <img id="logo-sunjuice" class="img-logo reveal" src="assets/logo-sunjuice.png" alt="Sun Juice" loading="lazy" style="height:32px;margin-top:24px;opacity:.7;" />
   </div>
 </section>
 
@@ -940,7 +1071,7 @@ Un symbole rare de fête, de liberté et de créativité.</p>
   <div class="scarcity-num" id="scarcity-num">100</div>
   <p class="scarcity-label">PIÈCES DISPONIBLES</p>
   <p class="scarcity-precision">25 par série · 4 séries · non renouvelé</p>
-  <button class="cta-scarcity" data-open-modal="">RÉSERVER MAINTENANT — 250€</button>
+  <button class="cta-scarcity" id="cta-scarcity-cart" type="button">AJOUTER AU PANIER — 250€</button>
 </section>
 
 <!-- ════════════ SECTION: ATELIER ════════════ -->
@@ -959,9 +1090,9 @@ Un symbole rare de fête, de liberté et de créativité.</p>
     <button class="modal-close" id="modal-close" aria-label="Fermer">×</button>
 
     <div id="form-content">
-      <h3>RÉSERVER</h3>
-      <p class="modal-sub">ÉDITION LIMITÉE · NON RÉÉDITÉE · 250€</p>
-      <form id="reserve-form" novalidate>
+      <div id="modal-step-color">
+        <h3>RÉSERVER</h3>
+        <p class="modal-sub">ÉDITION LIMITÉE · 250€ · PAIEMENT STRIPE</p>
         <select class="modal-field" id="modal-serie">
           <option value="">Choisir une série</option>
           <option value="drip">DRIP — Coulures suspendues</option>
@@ -969,30 +1100,44 @@ Un symbole rare de fête, de liberté et de créativité.</p>
           <option value="brush">BRUSH — Trait de pinceau</option>
           <option value="spin">SPIN — Tornado spirale</option>
         </select>
-
-        <select class="modal-field" id="modal-couleur">
-          <option value="">Choisir une couleur</option>
+        <p class="modal-color-label">Couleur</p>
+        <div class="modal-swatches" id="modal-swatches">
+          <button type="button" class="swatch" data-color="cyan" aria-label="Cyan"></button>
+          <button type="button" class="swatch" data-color="vert" aria-label="Vert"></button>
+          <button type="button" class="swatch" data-color="jaune" aria-label="Jaune"></button>
+          <button type="button" class="swatch" data-color="rose" aria-label="Rose"></button>
+        </div>
+        <select class="modal-field" id="modal-couleur" aria-hidden="true" tabindex="-1" style="position:absolute;opacity:0;pointer-events:none;height:0;padding:0;margin:0;border:0;">
           <option value="cyan">Cyan</option>
           <option value="vert">Vert</option>
           <option value="jaune">Jaune</option>
           <option value="rose">Rose</option>
         </select>
+        <button type="button" class="modal-btn" id="modal-pick-number">CHOISIR MON NUMÉRO</button>
+        <p style="margin-top:16px;font-size:.75rem;color:rgba(255,255,255,0.35);text-align:center;">
+          Étape suivante : grille des numéros disponibles.
+        </p>
+      </div>
 
-        <input class="modal-field" id="modal-numero" type="number" min="1" max="25" placeholder="Numéro souhaité 1-25 (optionnel)" />
-        <p class="field-note">Sous réserve de disponibilité.</p>
-
-        <input class="modal-field" id="modal-nom" type="text" placeholder="Nom complet" autocomplete="name" required />
-        <input class="modal-field" id="modal-email" type="email" placeholder="Email" autocomplete="email" required />
-
-        <button type="submit" id="modal-submit">CONFIRMER MA RÉSERVATION</button>
-      </form>
+      <div id="modal-step-number" style="display:none;">
+        <button type="button" class="modal-btn-secondary" id="modal-back">← Retour</button>
+        <h3>CHOISISSEZ VOTRE NUMÉRO</h3>
+        <p class="modal-sub" id="modal-piece-sub">—</p>
+        <div class="piece-grid" id="modal-piece-grid"></div>
+        <div class="piece-legend" style="margin-top:20px;">
+          <span><i class="lg lg-free"></i> Disponible</span>
+          <span><i class="lg lg-sel"></i> Votre choix</span>
+          <span><i class="lg lg-taken"></i> Réservé</span>
+        </div>
+        <button type="button" class="modal-btn" id="modal-add-cart" disabled>AJOUTER AU PANIER</button>
+      </div>
     </div>
 
     <div id="modal-success">
-      <img class="success-stamp" src="assets/stamp-joey.png" alt="Approved by JoeyStarr" />
-      <h3>Réservation confirmée.</h3>
-      <p>Ezéa vous contacte sous 48h pour confirmer votre numéro de pièce et finaliser le paiement. Bienvenue dans la collection.</p>
-      <button class="success-close" id="success-close">FERMER</button>
+      <img class="success-stamp img-stamp" src="assets/stamp-joey.png" alt="Approved by JoeyStarr" />
+      <h3>Ajouté au panier.</h3>
+      <p>Ouvrez le panier pour payer en toute sécurité avec Stripe.</p>
+      <button class="success-close" id="success-close">VOIR LE PANIER</button>
     </div>
   </div>
 </div>
@@ -1005,7 +1150,7 @@ Un symbole rare de fête, de liberté et de créativité.</p>
 
     <div class="faq-item reveal">
       <button class="faq-q">Comment fonctionne la réservation ?<span class="faq-icon">+</span></button>
-      <div class="faq-a"><p>Remplissez le formulaire avec votre série, couleur et numéro souhaité. Ezéa vous contacte sous 48h pour confirmer la disponibilité et vous envoyer les instructions de paiement. La pièce est réservée à réception du règlement.</p></div>
+      <div class="faq-a"><p>Remplissez le formulaire avec votre série, couleur et numéro souhaité, ajoutez au panier puis payez en toute sécurité via Stripe. Votre numéro est réservé pendant le paiement. Ezéa vous contacte sous 48h pour confirmer la livraison.</p></div>
     </div>
 
     <div class="faq-item reveal">
@@ -1024,7 +1169,7 @@ Un symbole rare de fête, de liberté et de créativité.</p>
 <footer id="footer">
   <div class="footer-row">
     <div class="footer-col1 reveal">
-      <img class="footer-logo" src="assets/logo-collab.png" alt="Carnival × Ezéa" />
+      <img class="footer-logo img-logo" src="assets/logo-collab.png" alt="Carnival × Ezéa" />
       <p class="footer-tag">Sculpture street art · Résine époxy main
 La Gaude, Alpes-Maritimes · ezea.fr</p>
     </div>
@@ -1039,60 +1184,114 @@ Tous droits réservés.</div>
   </div>
 </footer>
 
-<!-- ════════════ ADMIN ════════════ -->
-<button id="admin-link" title="Administration">· admin ·</button>
-<div id="admin">
-  <div class="admin-card">
-    <h2>ADMIN — GESTION DES PIÈCES</h2>
-    <p class="admin-intro">
-      Gérez ici les 4 séries (25 pièces chacune, la couleur est une variante du même numéro),
-      leur mise en vente et la réservation de chaque pièce (1 à 25). <b>Clic sur une case</b> :
-      libre → réservée (placeholder, jaune) → vendue (rose) → libre. Les réservations « placeholder »
-      remplissent le site au lancement ; libérez-les au fur et à mesure des ventes réelles.<br/>
-      Les changements sont sauvegardés dans ce navigateur. Pour les publier pour tous les visiteurs :
-      <b>Exporter</b> puis collez le bloc dans <code>STATE_SEED</code> du fichier HTML.
-    </p>
-    <div class="admin-toolbar">
-      <button class="admin-btn primary" id="admin-export-btn">Exporter la config</button>
-      <button class="admin-btn" id="admin-random-all">Aléatoire 5-7 (tous)</button>
-      <button class="admin-btn danger" id="admin-reset">Réinitialiser (défauts)</button>
-      <button class="admin-btn" id="admin-close">Fermer</button>
-    </div>
-    <textarea class="admin-export" id="admin-export-area" readonly></textarea>
-    <div id="admin-models"><!-- injecté en JS --></div>
+<!-- ════════════ PANIER ════════════ -->
+<div id="checkout-banner" role="status"></div>
+<div id="cart-overlay"></div>
+<aside id="cart-drawer" aria-label="Panier">
+  <div class="cart-head">
+    <h3>VOTRE PANIER</h3>
+    <button class="cart-close" id="cart-close" aria-label="Fermer">×</button>
   </div>
-</div>
+  <div class="cart-items" id="cart-items"></div>
+  <p class="cart-empty" id="cart-empty">Votre panier est vide.</p>
+  <div id="cart-footer" style="display:none;">
+    <input class="cart-field" id="cart-name" type="text" placeholder="Nom complet" autocomplete="name" required />
+    <input class="cart-field" id="cart-email" type="email" placeholder="Email" autocomplete="email" required />
+    <input class="cart-field" id="cart-phone" type="tel" placeholder="Téléphone" autocomplete="tel" required />
+    <textarea class="cart-field cart-textarea" id="cart-address" placeholder="Adresse de livraison (rue, code postal, ville)" autocomplete="street-address" required></textarea>
+    <p class="shipping-note">Livraison France métropolitaine incluse dans le prix · fabrication ~15 jours</p>
+    <div class="cart-shipping-row">
+      <span>Livraison</span>
+      <strong>Incluse</strong>
+    </div>
+    <div class="cart-total-row">
+      <span>TOTAL</span>
+      <strong id="cart-total">0€</strong>
+    </div>
+    <p id="cart-error"></p>
+    <button type="button" id="cart-checkout">PAYER AVEC STRIPE</button>
+  </div>
+</aside>
+
+<a id="admin-link" href="/admin" title="Administration stock">· admin ·</a>
 
 <!-- ════════════ AUDIO ════════════ -->
-<audio id="audio-track" src="" loop preload="none"></audio>
+<audio id="audio-track" src="assets/audio/boss-comme-des-fous.mp3" preload="auto"></audio>
 
+<script src="/js/shop.js"></script>
 <script>
-// ═══════════════════════════════════════
 // CONFIGURATION — MODIFIER CES VALEURS
 // ═══════════════════════════════════════
 
 const PIECES_RESTANTES = 100; // total affiché dans section raréfaction (texte marketing)
 
-const TOTAL_PER_MODEL = 25;   // pièces numérotées par série (100 pièces au total)
-
-// ── ÉTAT DES PIÈCES — 4 SÉRIES de 25 pièces (la couleur est une variante
-//    du même numéro). Généré pour le lancement avec 5 à 7 réservations
-//    « placeholder » par série pour que le site ne soit pas vierge.
-//    Statut d'une pièce : "fake" (placeholder) ou "sold" (vente réelle).
-//    Modifiez via l'ADMIN (lien discret en bas à gauche), puis « Exporter »
-//    et collez le bloc ci-dessous pour publier pour tous les visiteurs. ──
-const STATE_SEED = {
-    "drip": { onSale:true, pieces:{"2":"fake","9":"fake","10":"fake","11":"fake","16":"fake","17":"fake","24":"fake"} },
-    "splash": { onSale:true, pieces:{"3":"fake","4":"fake","7":"fake","9":"fake","13":"fake"} },
-    "brush": { onSale:true, pieces:{"2":"fake","5":"fake","8":"fake","10":"fake","13":"fake","24":"fake"} },
-    "spin": { onSale:true, pieces:{"7":"fake","10":"fake","15":"fake","16":"fake","20":"fake","25":"fake"} }
-  };
-
-// ═══════════════════════════════════════
+const TOTAL_PER_MODEL = 25;
 
 // ── DONNÉES SÉRIES ──
 const COLOR_HEX = { cyan:'#00BFFF', vert:'#5FD12A', jaune:'#F5C800', rose:'#FF1493' };
 const COLOR_LABEL = { cyan:'CYAN', vert:'VERT', jaune:'JAUNE', rose:'ROSE' };
+const COLOR_ORDER = ['cyan', 'vert', 'jaune', 'rose'];
+const SERIE_ORDER = ['drip', 'splash', 'brush', 'spin'];
+const COLOR_STEP_MS = 2000;
+const PRELOADER_CLOSE_MS = 2800;
+
+function photoSrc(serie, color){
+  return 'assets/' + serie + '-' + color + '.png';
+}
+
+// Horloge partagée : une étape = une couleur, 4 couleurs puis modèle suivant
+function createColorSequence(onStep){
+  let epoch = null;
+  let lastStep = -1;
+  let rafId = null;
+  let hiddenAt = null;
+
+  function readStep(now){
+    const elapsed = Math.max(0, now - epoch);
+    const step = Math.floor(elapsed / COLOR_STEP_MS);
+    return {
+      step,
+      colorIdx: step % COLOR_ORDER.length,
+      serieIdx: Math.floor(step / COLOR_ORDER.length) % SERIE_ORDER.length,
+    };
+  }
+
+  function frame(now){
+    if (!epoch){ rafId = requestAnimationFrame(frame); return; }
+    const data = readStep(now);
+    if (data.step !== lastStep){
+      lastStep = data.step;
+      onStep(data.colorIdx, data.serieIdx);
+    }
+    rafId = requestAnimationFrame(frame);
+  }
+
+  function start(delay){
+    setTimeout(() => {
+      epoch = performance.now();
+      lastStep = -1;
+      rafId = requestAnimationFrame(frame);
+    }, delay);
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    if (!epoch) return;
+    if (document.visibilityState === 'hidden'){
+      hiddenAt = performance.now();
+      cancelAnimationFrame(rafId);
+      return;
+    }
+    if (hiddenAt){
+      epoch += performance.now() - hiddenAt;
+      hiddenAt = null;
+      const data = readStep(performance.now());
+      lastStep = data.step - 1;
+    }
+    rafId = requestAnimationFrame(frame);
+  });
+
+  return { start };
+}
 
 const SERIES = {
   drip: {
@@ -1116,49 +1315,15 @@ const SERIES = {
 // État courant
 let currentSerie = 'drip';
 let currentColor = 'jaune';
-let selectedPiece = null; // numéro choisi dans la grille loto
+// ── STOCK (API serveur via shop.js) ──
+function modelKey(serie){ return serie; }
 
-// ── SECTION: ÉTAT DES PIÈCES (réservations + admin) ──
-const LS_KEY = 'ezea-pieces-state';
-const SERIES_KEYS = ['drip','splash','brush','spin'];
-const COLOR_KEYS = ['cyan','vert','jaune','rose'];
+window.onInventoryLoaded = function(){
+  updateBadge(currentSerie, currentColor);
+  renderGrid();
+};
 
-function deepClone(o){ return JSON.parse(JSON.stringify(o)); }
-// Une « série » = un modèle de 25 pièces. La couleur est une variante du même
-// numéro, donc la clé d'état ne dépend que de la série (l'arg couleur est ignoré).
-function modelKey(serie, _color){ return serie; }
-
-// Charge l'état : localStorage (modifs admin) sinon défauts STATE_SEED.
-let STATE = (function loadState(){
-  try {
-    const raw = localStorage.getItem(LS_KEY);
-    if (raw) return JSON.parse(raw);
-  } catch(e){}
-  return deepClone(STATE_SEED);
-})();
-
-function saveState(){
-  try { localStorage.setItem(LS_KEY, JSON.stringify(STATE)); } catch(e){}
-}
-function getModel(key){
-  if (!STATE[key]) STATE[key] = { onSale:true, pieces:{} };
-  if (!STATE[key].pieces) STATE[key].pieces = {};
-  return STATE[key];
-}
-function pieceStatus(key, n){ return getModel(key).pieces[n] || 'free'; }
-function reservedCount(key){ return Object.keys(getModel(key).pieces).length; }
-function availCount(key){ return TOTAL_PER_MODEL - reservedCount(key); }
-function isOnSale(key){ return getModel(key).onSale !== false; }
-
-// 5 à 7 réservations placeholder aléatoires pour un modèle
-function randomizeModel(key){
-  const m = getModel(key);
-  const target = 5 + Math.floor(Math.random()*3);
-  const nums = new Set();
-  while (nums.size < target) nums.add(1 + Math.floor(Math.random()*TOTAL_PER_MODEL));
-  m.pieces = {};
-  nums.forEach(n => { m.pieces[n] = 'fake'; });
-}
+window.renderPieceGrid = renderGrid;
 
 // Préférence reduced-motion
 const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1298,40 +1463,91 @@ onNavScroll();
 })();
 
 // ── SECTION: SÉLECTEUR DE SÉRIES ──
-const sculptActive = document.getElementById('sculpture-active');
+const seriesTrack = document.getElementById('series-carousel-track');
 const seriesNameEl = document.getElementById('series-name');
 const seriesDescEl = document.getElementById('series-desc');
 const availBadge = document.getElementById('avail-badge');
+let seriesSlideIndex = 0;
+let seriesCarouselTimer = null;
+
+function clearSeriesCarouselTimer(){
+  if (seriesCarouselTimer){
+    clearTimeout(seriesCarouselTimer);
+    seriesCarouselTimer = null;
+  }
+}
 
 function setAccent(color){
   document.documentElement.style.setProperty('--accent', COLOR_HEX[color]);
 }
 
-function phClassFor(color){ return 'ph-' + color; }
+function buildCarouselTrack(track, serie){
+  track.innerHTML = COLOR_ORDER.map(color => (
+    '<div class="sculpture-slide" data-color="' + color + '">' +
+      '<img src="' + photoSrc(serie, color) + '" alt="' +
+      SERIES[serie].name + ' ' + COLOR_LABEL[color] + '" loading="lazy" />' +
+    '</div>'
+  )).join('');
+}
 
-function updateSculpture(serie, color){
-  // Source de vérité = img réservé (drip-jaune dans le hero, sinon gallery)
-  const srcImg = document.getElementById(serie + '-' + color);
-  sculptActive.classList.add('fading');
-  setTimeout(() => {
-    if (srcImg){
-      const realSrc = srcImg.getAttribute('src');
-      if (realSrc) sculptActive.src = realSrc; else sculptActive.removeAttribute('src');
-      sculptActive.alt = srcImg.alt;
-    }
-    sculptActive.classList.remove('ph-cyan','ph-vert','ph-jaune','ph-rose');
-    sculptActive.classList.add(phClassFor(color));
-    sculptActive.classList.remove('fading');
-  }, 350);
+function moveCarouselTrack(track, index, animate){
+  index = ((index % COLOR_ORDER.length) + COLOR_ORDER.length) % COLOR_ORDER.length;
+  if (animate === false){
+    track.style.transition = 'none';
+    track.style.transform = 'translateX(-' + (index * 100) + '%)';
+    void track.offsetWidth;
+    track.style.transition = '';
+  } else {
+    track.style.transform = 'translateX(-' + (index * 100) + '%)';
+  }
+  return index;
+}
+
+function applySeriesColor(color){
+  currentColor = color;
+  setAccent(color);
+  updateSwatches(color);
+  updateBadge(currentSerie, color);
+  renderGrid();
+}
+
+function goToSeriesSlide(index, animate){
+  seriesSlideIndex = moveCarouselTrack(seriesTrack, index, animate);
+  applySeriesColor(COLOR_ORDER[seriesSlideIndex]);
+}
+
+function rebuildSeriesCarousel(serie){
+  buildCarouselTrack(seriesTrack, serie);
+  const dominant = SERIES[serie].dominant;
+  const start = Math.max(0, COLOR_ORDER.indexOf(dominant));
+  goToSeriesSlide(start, false);
+}
+
+function restartSeriesCarousel(){
+  clearSeriesCarouselTimer();
+  if (REDUCED) return;
+  function scheduleNext(){
+    seriesCarouselTimer = setTimeout(() => {
+      goToSeriesSlide(seriesSlideIndex + 1);
+      scheduleNext();
+    }, COLOR_STEP_MS);
+  }
+  scheduleNext();
+}
+
+function pauseAndRestartSeriesCarousel(){
+  clearSeriesCarouselTimer();
+  if (!REDUCED) restartSeriesCarousel();
 }
 
 function updateBadge(serie, color){
-  const key = modelKey(serie, color);
-  if (!isOnSale(key)){
+  const key = modelKey(serie);
+  if (typeof isOnSale === 'function' && !isOnSale(key)){
     availBadge.textContent = COLOR_LABEL[color] + ' — bientôt disponible';
     return;
   }
-  availBadge.textContent = COLOR_LABEL[color] + ' — ' + availCount(key) + ' / ' + TOTAL_PER_MODEL + ' pièces disponibles';
+  const avail = typeof availCount === 'function' ? availCount(key) : TOTAL_PER_MODEL;
+  availBadge.textContent = COLOR_LABEL[color] + ' — ' + avail + ' / ' + TOTAL_PER_MODEL + ' pièces disponibles';
 }
 
 // ── GRILLE LOTO : rendu des 25 cases pour le modèle actif ──
@@ -1340,44 +1556,32 @@ const pieceSub = document.getElementById('piece-sub');
 const pieceSoldout = document.getElementById('piece-soldout');
 
 function renderGrid(){
-  const key = modelKey(currentSerie, currentColor);
+  const key = modelKey(currentSerie);
   pieceGrid.innerHTML = '';
-  selectedPiece = null;
 
-  if (!isOnSale(key)){
+  if (typeof isOnSale === 'function' && !isOnSale(key)){
     pieceSub.textContent = SERIES[currentSerie].name + ' · ' + COLOR_LABEL[currentColor];
     pieceGrid.innerHTML = '<div class="piece-model-off" style="grid-column:1/-1">Ce modèle sera bientôt mis en vente.</div>';
     pieceSoldout.textContent = '';
     return;
   }
 
-  const avail = availCount(key);
+  const avail = typeof availCount === 'function' ? availCount(key) : TOTAL_PER_MODEL;
   pieceSub.textContent = SERIES[currentSerie].name + ' · ' + COLOR_LABEL[currentColor]
-    + ' — ' + avail + ' / ' + TOTAL_PER_MODEL + ' disponibles';
+    + ' — ' + avail + ' / ' + TOTAL_PER_MODEL + ' disponibles · réservez via « Ajouter au panier »';
   pieceSoldout.textContent = avail === 0 ? 'COMPLET' : '';
 
   for (let n = 1; n <= TOTAL_PER_MODEL; n++){
-    const cell = document.createElement('button');
-    cell.type = 'button';
+    const cell = document.createElement('div');
     cell.className = 'piece-cell';
     cell.textContent = String(n).padStart(2, '0');
-    const taken = pieceStatus(key, n) !== 'free';
+    cell.setAttribute('aria-hidden', 'true');
+    const taken = typeof isPieceTaken === 'function' ? isPieceTaken(key, n) : false;
     if (taken){
       cell.classList.add('taken');
-      cell.disabled = true;
-      cell.setAttribute('aria-label', 'Pièce ' + n + ' réservée');
-    } else {
-      cell.setAttribute('aria-label', 'Choisir la pièce ' + n);
-      cell.addEventListener('click', () => selectPiece(n, cell));
     }
     pieceGrid.appendChild(cell);
   }
-}
-
-function selectPiece(n, cell){
-  selectedPiece = n;
-  pieceGrid.querySelectorAll('.piece-cell.selected').forEach(c => c.classList.remove('selected'));
-  cell.classList.add('selected');
 }
 
 function updateSwatches(color){
@@ -1386,13 +1590,11 @@ function updateSwatches(color){
   });
 }
 
-function selectColor(color, changeAccent){
-  currentColor = color;
-  if (changeAccent !== false) setAccent(color);
-  updateSwatches(color);
-  updateSculpture(currentSerie, color);
-  updateBadge(currentSerie, color);
-  renderGrid();
+function selectColor(color){
+  const idx = COLOR_ORDER.indexOf(color);
+  if (idx < 0) return;
+  goToSeriesSlide(idx);
+  pauseAndRestartSeriesCarousel();
 }
 
 function selectSerie(serie){
@@ -1418,10 +1620,8 @@ function selectSerie(serie){
   seriesDescEl.textContent = data.desc;
 
   // swatch / sculpture / badge sur couleur dominante
-  updateSwatches(currentColor);
-  updateSculpture(serie, currentColor);
-  updateBadge(serie, currentColor);
-  renderGrid();
+  rebuildSeriesCarousel(serie);
+  pauseAndRestartSeriesCarousel();
 }
 
 document.querySelectorAll('.series-tab').forEach(tab => {
@@ -1433,13 +1633,60 @@ document.querySelectorAll('.swatch').forEach(sw => {
 
 // Init sélecteur (DRIP / jaune)
 seriesDescEl.textContent = SERIES.drip.desc;
-updateBadge('drip','jaune');
-renderGrid();
+rebuildSeriesCarousel('drip');
+if (!REDUCED) setTimeout(restartSeriesCarousel, PRELOADER_CLOSE_MS);
 
-// CTA série -> modal pré-sélectionné (avec le numéro choisi si présent)
-document.getElementById('cta-series').addEventListener('click', () => {
-  openModal(currentSerie, currentColor, selectedPiece);
-});
+// ── HERO : texte + image verrouillés sur la même horloge ──
+(function heroSync(){
+  const heroA = document.getElementById('hero-sculpture-a');
+  const heroB = document.getElementById('hero-sculpture-b');
+  const heroWrap = document.getElementById('hero-carousel');
+  const heroTitle = document.querySelector('.hero-text h1 .l2');
+  let frontIsA = true;
+  let hasShown = false;
+
+  function setHeroVisual(colorIdx, serieIdx){
+    const color = COLOR_ORDER[colorIdx];
+    const serie = SERIE_ORDER[serieIdx];
+    const src = photoSrc(serie, color);
+    const alt = SERIES[serie].name + ' ' + COLOR_LABEL[color];
+
+    heroTitle.style.color = COLOR_HEX[color];
+    heroWrap.setAttribute('aria-label', 'Série ' + SERIES[serie].name + ' — ' + COLOR_LABEL[color]);
+
+    if (!hasShown){
+      hasShown = true;
+      heroA.src = src;
+      heroA.alt = alt;
+      return;
+    }
+
+    const front = frontIsA ? heroA : heroB;
+    const back = frontIsA ? heroB : heroA;
+    back.src = src;
+    back.alt = alt;
+    front.classList.replace('is-front', 'is-back');
+    front.setAttribute('aria-hidden', 'true');
+    back.classList.replace('is-back', 'is-front');
+    back.removeAttribute('aria-hidden');
+    frontIsA = !frontIsA;
+  }
+
+  if (REDUCED) return;
+
+  createColorSequence(setHeroVisual).start(PRELOADER_CLOSE_MS);
+})();
+
+let pendingOpenCart = false;
+
+function addCurrentToCart(openAfter){
+  pendingOpenCart = !!openAfter;
+  openAddModal(currentSerie, currentColor);
+}
+
+document.getElementById('cta-series').addEventListener('click', () => addCurrentToCart(true));
+document.getElementById('btn-add-cart').addEventListener('click', () => addCurrentToCart(true));
+document.getElementById('cta-scarcity-cart').addEventListener('click', () => addCurrentToCart(true));
 
 // ── SECTION: SCARCITY (valeur depuis config) ──
 document.getElementById('scarcity-num').textContent = PIECES_RESTANTES;
@@ -1461,213 +1708,159 @@ document.getElementById('scarcity-num').textContent = PIECES_RESTANTES;
   update();
 })();
 
-// ── SECTION: MODAL ──
+// ── SECTION: MODAL (couleur → grille numéro) ──
 const modal = document.getElementById('modal');
 const formContent = document.getElementById('form-content');
 const modalSuccess = document.getElementById('modal-success');
+const modalStepColor = document.getElementById('modal-step-color');
+const modalStepNumber = document.getElementById('modal-step-number');
 const selSerie = document.getElementById('modal-serie');
 const selCouleur = document.getElementById('modal-couleur');
+const modalPieceGrid = document.getElementById('modal-piece-grid');
+const modalPieceSub = document.getElementById('modal-piece-sub');
+const modalPickNumberBtn = document.getElementById('modal-pick-number');
+const modalAddCartBtn = document.getElementById('modal-add-cart');
+const modalBackBtn = document.getElementById('modal-back');
 
-function openModal(serie, couleur, numero){
-  // pré-remplissage si fourni
-  if (serie) selSerie.value = serie;
-  if (couleur) selCouleur.value = couleur;
-  const numField = document.getElementById('modal-numero');
-  numField.value = numero ? numero : '';
-  // reset état succès
+let modalSelectedSerie = null;
+let modalSelectedColor = null;
+let modalSelectedPiece = null;
+
+function showModalStep(step){
+  modalStepColor.style.display = step === 'color' ? 'block' : 'none';
+  modalStepNumber.style.display = step === 'number' ? 'block' : 'none';
+}
+
+function updateModalSwatches(color){
+  if (!color) return;
+  modalSelectedColor = color;
+  selCouleur.value = color;
+  document.querySelectorAll('#modal-swatches .swatch').forEach(s => {
+    s.classList.toggle('active', s.dataset.color === color);
+  });
+}
+
+function openAddModal(serie, color){
+  modalSelectedSerie = serie || currentSerie;
+  modalSelectedColor = color || currentColor;
+  modalSelectedPiece = null;
+  selSerie.value = modalSelectedSerie;
+  updateModalSwatches(modalSelectedColor);
+  showModalStep('color');
   formContent.style.display = 'block';
   modalSuccess.classList.remove('show');
   modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
 }
-function closeModal(){ modal.classList.remove('open'); }
 
-// boutons d'ouverture
+function closeModal(){
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
+  showModalStep('color');
+  modalSelectedPiece = null;
+}
+
+function renderModalGrid(){
+  const serie = modalSelectedSerie;
+  const color = modalSelectedColor;
+  const key = modelKey(serie);
+  modalPieceGrid.innerHTML = '';
+  modalSelectedPiece = null;
+  modalAddCartBtn.disabled = true;
+
+  if (typeof isOnSale === 'function' && !isOnSale(key)){
+    modalPieceSub.textContent = SERIES[serie].name + ' · ' + COLOR_LABEL[color];
+    modalPieceGrid.innerHTML = '<div class="piece-model-off" style="grid-column:1/-1">Ce modèle sera bientôt mis en vente.</div>';
+    return;
+  }
+
+  const avail = typeof availCount === 'function' ? availCount(key) : TOTAL_PER_MODEL;
+  modalPieceSub.textContent = SERIES[serie].name + ' · ' + COLOR_LABEL[color]
+    + ' — ' + avail + ' / ' + TOTAL_PER_MODEL + ' disponibles';
+
+  for (let n = 1; n <= TOTAL_PER_MODEL; n++){
+    const cell = document.createElement('button');
+    cell.type = 'button';
+    cell.className = 'piece-cell';
+    cell.textContent = String(n).padStart(2, '0');
+    const taken = typeof isPieceTaken === 'function' ? isPieceTaken(key, n) : false;
+    if (taken){
+      cell.classList.add('taken');
+      cell.disabled = true;
+      cell.setAttribute('aria-label', 'Pièce ' + n + ' réservée');
+    } else {
+      cell.setAttribute('aria-label', 'Choisir la pièce ' + n);
+      cell.addEventListener('click', () => {
+        modalSelectedPiece = n;
+        modalPieceGrid.querySelectorAll('.piece-cell.selected').forEach(c => c.classList.remove('selected'));
+        cell.classList.add('selected');
+        modalAddCartBtn.disabled = false;
+      });
+    }
+    modalPieceGrid.appendChild(cell);
+  }
+}
+
+document.querySelectorAll('#modal-swatches .swatch').forEach(sw => {
+  sw.addEventListener('click', () => updateModalSwatches(sw.dataset.color));
+});
+selSerie.addEventListener('change', () => { modalSelectedSerie = selSerie.value; });
+
+modalPickNumberBtn.addEventListener('click', () => {
+  modalSelectedSerie = selSerie.value;
+  modalSelectedColor = selCouleur.value;
+  if (!modalSelectedSerie || !modalSelectedColor){
+    alert('Veuillez choisir une série et une couleur.');
+    return;
+  }
+  if (typeof isOnSale === 'function' && !isOnSale(modelKey(modalSelectedSerie))){
+    alert('Cette série n\'est pas encore en vente.');
+    return;
+  }
+  renderModalGrid();
+  showModalStep('number');
+});
+
+modalBackBtn.addEventListener('click', () => showModalStep('color'));
+
+modalAddCartBtn.addEventListener('click', () => {
+  if (!modalSelectedPiece) return;
+  const result = addToCart({
+    serie: modalSelectedSerie,
+    color: modalSelectedColor,
+    numero: modalSelectedPiece,
+  });
+  if (!result.ok){
+    alert(result.error);
+    renderModalGrid();
+    renderGrid();
+    return;
+  }
+  renderGrid();
+  if (pendingOpenCart){
+    pendingOpenCart = false;
+    closeModal();
+    openCart();
+    return;
+  }
+  formContent.style.display = 'none';
+  modalSuccess.classList.add('show');
+});
+
 document.querySelectorAll('[data-open-modal]').forEach(btn => {
-  btn.addEventListener('click', () => openModal());
+  btn.addEventListener('click', () => openAddModal());
 });
 document.getElementById('modal-close').addEventListener('click', closeModal);
-document.getElementById('success-close').addEventListener('click', closeModal);
+document.getElementById('success-close').addEventListener('click', () => {
+  closeModal();
+  openCart();
+});
 modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
 });
 
-// Couleur des options du select couleur (swatch visuel)
-[...selCouleur.options].forEach(opt => {
-  if (opt.value){
-    opt.style.color = COLOR_HEX[opt.value];
-  }
-});
-
-// Soumission
-// TODO: connecter à Formspree ou Netlify Forms
-// Remplacer handleSubmit par fetch POST vers endpoint
-document.getElementById('reserve-form').addEventListener('submit', function(e){
-  e.preventDefault();
-  handleSubmit();
-});
-
-function handleSubmit(){
-  const nom = document.getElementById('modal-nom');
-  const email = document.getElementById('modal-email');
-  let valid = true;
-
-  [nom, email].forEach(f => {
-    if (!f.value.trim()){ f.classList.add('error'); valid = false; }
-    else f.classList.remove('error');
-  });
-  if (!valid) return;
-
-  // Enregistre la réservation réelle dans l'état (si série + couleur + n° valides).
-  // L'admin pourra ensuite libérer une réservation « placeholder » en contrepartie.
-  const serie = selSerie.value, couleur = selCouleur.value;
-  const numero = parseInt(document.getElementById('modal-numero').value, 10);
-  if (serie && couleur && numero >= 1 && numero <= TOTAL_PER_MODEL){
-    const key = modelKey(serie, couleur);
-    if (pieceStatus(key, numero) === 'free'){
-      getModel(key).pieces[numero] = 'sold';
-      saveState();
-      renderGrid();
-      updateBadge(currentSerie, currentColor);
-    }
-  }
-
-  // 2. Masquer le formulaire, 3. afficher le succès
-  formContent.style.display = 'none';
-  modalSuccess.classList.add('show');
-}
-
-// retirer l'erreur dès qu'on tape
-['modal-nom','modal-email'].forEach(id => {
-  document.getElementById(id).addEventListener('input', function(){
-    this.classList.remove('error');
-  });
-});
-
-// ── SECTION: ADMIN ──
-(function admin(){
-  const panel = document.getElementById('admin');
-  const link = document.getElementById('admin-link');
-  const modelsWrap = document.getElementById('admin-models');
-  const exportArea = document.getElementById('admin-export-area');
-
-  function open(){ renderAdmin(); panel.classList.add('open'); }
-  function close(){ panel.classList.remove('open'); exportArea.classList.remove('show'); }
-
-  link.addEventListener('click', open);
-  document.getElementById('admin-close').addEventListener('click', close);
-  // Ouverture aussi via l'ancre #admin
-  if (location.hash === '#admin') open();
-  window.addEventListener('hashchange', () => { if (location.hash === '#admin') open(); });
-
-  function refreshFront(){
-    saveState();
-    updateBadge(currentSerie, currentColor);
-    renderGrid();
-  }
-
-  // Cycle d'une pièce : free -> fake -> sold -> free
-  function cyclePiece(key, n){
-    const m = getModel(key);
-    const cur = m.pieces[n] || 'free';
-    if (cur === 'free') m.pieces[n] = 'fake';
-    else if (cur === 'fake') m.pieces[n] = 'sold';
-    else delete m.pieces[n];
-  }
-  // Libère une réservation placeholder (la plus pratique au fil des ventes réelles)
-  function releaseFake(key){
-    const m = getModel(key);
-    const fake = Object.keys(m.pieces).find(n => m.pieces[n] === 'fake');
-    if (fake) delete m.pieces[fake];
-  }
-
-  function renderAdmin(){
-    modelsWrap.innerHTML = '';
-    SERIES_KEYS.forEach(serie => {
-      const key = modelKey(serie);
-      const m = getModel(key);
-      const fakeN = Object.values(m.pieces).filter(s => s === 'fake').length;
-      const soldN = Object.values(m.pieces).filter(s => s === 'sold').length;
-
-      const row = document.createElement('div');
-      row.className = 'admin-model';
-
-      const head = document.createElement('div');
-      head.className = 'admin-model-head';
-      head.innerHTML =
-        '<span class="admin-dot" style="background:' + COLOR_HEX[SERIES[serie].dominant] + '"></span>' +
-        '<span class="admin-model-name">' + SERIES[serie].name + '</span>' +
-        '<span class="admin-count">dispo <b>' + availCount(key) + '</b>/' + TOTAL_PER_MODEL +
-        ' · placeholder ' + fakeN + ' · vendues ' + soldN + '</span>';
-
-      const actions = document.createElement('div');
-      actions.className = 'admin-model-actions';
-
-      const toggle = document.createElement('button');
-      toggle.className = 'admin-toggle ' + (m.onSale !== false ? 'on' : 'off');
-      toggle.textContent = m.onSale !== false ? 'EN VENTE' : 'HORS VENTE';
-      toggle.addEventListener('click', () => { m.onSale = m.onSale === false; refreshFront(); renderAdmin(); });
-
-      const rnd = document.createElement('button');
-      rnd.className = 'admin-mini';
-      rnd.textContent = 'Aléatoire 5-7';
-      rnd.addEventListener('click', () => { randomizeModel(key); refreshFront(); renderAdmin(); });
-
-      const rel = document.createElement('button');
-      rel.className = 'admin-mini';
-      rel.textContent = 'Libérer 1 placeholder';
-      rel.addEventListener('click', () => { releaseFake(key); refreshFront(); renderAdmin(); });
-
-      const clr = document.createElement('button');
-      clr.className = 'admin-mini';
-      clr.textContent = 'Tout libérer';
-      clr.addEventListener('click', () => { m.pieces = {}; refreshFront(); renderAdmin(); });
-
-      actions.append(toggle, rnd, rel, clr);
-      head.appendChild(actions);
-      row.appendChild(head);
-
-      const grid = document.createElement('div');
-      grid.className = 'admin-grid';
-      for (let n = 1; n <= TOTAL_PER_MODEL; n++){
-        const c = document.createElement('button');
-        const st = m.pieces[n] || 'free';
-        c.className = 'admin-pcell' + (st !== 'free' ? ' ' + st : '');
-        c.textContent = n;
-        c.title = 'Pièce ' + n + ' — ' + st;
-        c.addEventListener('click', () => { cyclePiece(key, n); refreshFront(); renderAdmin(); });
-        grid.appendChild(c);
-      }
-      row.appendChild(grid);
-      modelsWrap.appendChild(row);
-    });
-  }
-
-  // Outils globaux
-  document.getElementById('admin-random-all').addEventListener('click', () => {
-    SERIES_KEYS.forEach(s => randomizeModel(modelKey(s)));
-    refreshFront(); renderAdmin();
-  });
-  document.getElementById('admin-reset').addEventListener('click', () => {
-    if (!confirm('Réinitialiser aux réservations par défaut (STATE_SEED) ?')) return;
-    STATE = deepClone(STATE_SEED); refreshFront(); renderAdmin();
-  });
-  document.getElementById('admin-export-btn').addEventListener('click', () => {
-    // Produit le littéral à coller dans STATE_SEED
-    const lines = [];
-    SERIES_KEYS.forEach(serie => {
-      const key = modelKey(serie);
-      const m = getModel(key);
-      const pcs = Object.keys(m.pieces).sort((a,b)=>a-b)
-        .map(n => '"' + n + '":"' + m.pieces[n] + '"').join(',');
-      lines.push('    "' + key + '": { onSale:' + (m.onSale !== false) + ', pieces:{' + pcs + '} }');
-    });
-    exportArea.value = 'const STATE_SEED = {\n' + lines.join(',\n') + '\n  };';
-    exportArea.classList.add('show');
-    exportArea.scrollIntoView({ behavior:'smooth', block:'center' });
-    exportArea.select();
-  });
-})();
+fetchInventory().catch(() => {});
 
 // ── SECTION: FAQ accordéon ──
 document.querySelectorAll('.faq-q').forEach(q => {
@@ -1701,27 +1894,52 @@ document.querySelectorAll('.faq-q').forEach(q => {
   }
   btn.classList.remove('disabled');
 
+  const label = btn.querySelector('.sound-label');
+
   function setIcon(on){
     btn.classList.toggle('on', on);
     btn.classList.toggle('off', !on);
+    btn.title = on ? 'Couper la musique — B.O.S.S' : 'Activer la musique — B.O.S.S';
+    btn.setAttribute('aria-label', on ? 'Couper le son' : 'Activer le son');
+    if (label) label.textContent = on ? 'SON' : 'MUET';
   }
 
-  // restaurer préférence
-  const enabled = sessionStorage.getItem('audio-enabled') === 'true';
-  setIcon(false); // jamais d'autoplay : on reste off au chargement
+  function startAudio(){
+    if (audio.ended) audio.currentTime = 0;
+    return audio.play().then(() => {
+      sessionStorage.setItem('audio-enabled', 'true');
+      setIcon(true);
+    }).catch(() => false);
+  }
+
+  function stopAudio(){
+    audio.pause();
+    sessionStorage.setItem('audio-enabled', 'false');
+    setIcon(false);
+  }
+
+  audio.addEventListener('ended', () => {
+    sessionStorage.setItem('audio-enabled', 'false');
+    setIcon(false);
+  });
+
+  const userMuted = sessionStorage.getItem('audio-enabled') === 'false';
+
+  if (userMuted){
+    setIcon(false);
+  } else {
+    setIcon(true);
+    setTimeout(() => { startAudio(); }, PRELOADER_CLOSE_MS);
+    const unlock = () => {
+      if (sessionStorage.getItem('audio-enabled') !== 'false') startAudio();
+    };
+    document.addEventListener('click', unlock, { once:true, passive:true });
+    document.addEventListener('touchstart', unlock, { once:true, passive:true });
+  }
 
   btn.addEventListener('click', () => {
-    if (audio.src && audio.src !== window.location.href){
-      if (audio.paused){
-        audio.play().catch(() => {});
-        sessionStorage.setItem('audio-enabled', 'true');
-        setIcon(true);
-      } else {
-        audio.pause();
-        sessionStorage.setItem('audio-enabled', 'false');
-        setIcon(false);
-      }
-    }
+    if (audio.paused) startAudio();
+    else stopAudio();
   });
 })();
 
