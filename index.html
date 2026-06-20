@@ -693,13 +693,22 @@ img[src=""],img:not([src]){min-height:1px;}
   font-size:.75rem;color:rgba(255,255,255,0.3);
   margin-top:-8px;margin-bottom:16px;
 }
+.modal-btn{
   width:100%;background:var(--accent);color:var(--black);
   font-family:'Space Mono',monospace;font-size:.85rem;font-weight:700;
   letter-spacing:.1em;text-transform:uppercase;
-  padding:18px;border:none;margin-top:8px;transition:opacity .25s;
+  padding:18px;border:none;margin-top:8px;transition:opacity .25s,transform .2s,filter .2s,box-shadow .2s;
 }
 .modal-btn:hover{opacity:.85;}
 .modal-btn:disabled{opacity:.45;cursor:not-allowed;}
+#modal-pick-number{
+  padding:24px 20px;font-size:1rem;letter-spacing:.14em;
+  margin-top:32px;border:2px solid transparent;font-weight:700;
+  box-shadow:0 12px 40px rgba(0,0,0,0.35);
+}
+#modal-pick-number:hover:not(:disabled){
+  opacity:1;transform:translateY(-2px);filter:brightness(1.08);
+}
 .modal-btn-secondary{
   width:auto;background:none;color:rgba(255,255,255,0.55);
   border:none;font-family:'Space Mono',monospace;font-size:.68rem;
@@ -707,8 +716,15 @@ img[src=""],img:not([src]){min-height:1px;}
   text-transform:uppercase;
 }
 .modal-btn-secondary:hover{color:var(--white);}
-.modal-swatches{display:flex;gap:12px;justify-content:center;margin:20px 0 8px;}
-.modal-swatches .swatch{cursor:pointer;}
+.modal-swatches{display:flex;gap:14px;justify-content:center;margin:24px 0 12px;}
+.modal-swatches .swatch{
+  width:44px;height:44px;cursor:pointer;opacity:.45;
+  border:2px solid transparent;
+}
+.modal-swatches .swatch.active{
+  opacity:1;transform:scale(1.2);
+  border-color:var(--white);
+}
 .modal-color-label{
   font-family:'Space Mono',monospace;font-size:.65rem;
   letter-spacing:.12em;text-transform:uppercase;
@@ -1585,7 +1601,7 @@ function renderGrid(){
 }
 
 function updateSwatches(color){
-  document.querySelectorAll('.swatch').forEach(s => {
+  document.querySelectorAll('#series .swatches .swatch').forEach(s => {
     s.classList.toggle('active', s.dataset.color === color);
   });
 }
@@ -1627,7 +1643,7 @@ function selectSerie(serie){
 document.querySelectorAll('.series-tab').forEach(tab => {
   tab.addEventListener('click', () => selectSerie(tab.dataset.serie));
 });
-document.querySelectorAll('.swatch').forEach(sw => {
+document.querySelectorAll('#series .swatch').forEach(sw => {
   sw.addEventListener('click', () => selectColor(sw.dataset.color));
 });
 
@@ -1735,9 +1751,18 @@ function updateModalSwatches(color){
   if (!color) return;
   modalSelectedColor = color;
   selCouleur.value = color;
+  const hex = COLOR_HEX[color] || '#F5C800';
   document.querySelectorAll('#modal-swatches .swatch').forEach(s => {
-    s.classList.toggle('active', s.dataset.color === color);
+    const isActive = s.dataset.color === color;
+    s.classList.toggle('active', isActive);
+    s.style.boxShadow = isActive
+      ? '0 0 0 3px ' + hex + ', 0 10px 28px ' + hex + '55'
+      : '';
   });
+  modalPickNumberBtn.style.background = hex;
+  modalPickNumberBtn.style.borderColor = hex;
+  modalPickNumberBtn.style.color = '#0a0a0a';
+  modalPickNumberBtn.style.boxShadow = '0 12px 40px ' + hex + '66';
 }
 
 function openAddModal(serie, color){
