@@ -26,7 +26,7 @@
   --or:#C8A832;
 
   /* Accent dynamique — change selon la série/couleur active.
-     Défaut = jaune (série DRIP) */
+     Défaut = jaune (série SLIME) */
   --accent:#F5C800;
 
   /* Durée globale d'animation (passée à 0.01ms si reduced-motion) */
@@ -965,9 +965,9 @@ body.cursor-hover #cursor-ring{transform:scale(1.5);border-color:var(--accent);b
     </div>
     <div class="hero-visual">
       <div class="hero-sculpt-wrap">
-        <div class="sculpture-carousel hero-carousel" id="hero-carousel" aria-label="Série DRIP — CYAN">
+        <div class="sculpture-carousel hero-carousel" id="hero-carousel" aria-label="Série SLIME — CYAN">
           <div class="hero-sculpture-stage">
-            <img id="hero-sculpture-a" class="hero-sculpture-img is-front" src="assets/drip-cyan.png" alt="DRIP CYAN" />
+            <img id="hero-sculpture-a" class="hero-sculpture-img is-front" src="assets/drip-cyan.png" alt="SLIME CYAN" />
             <img id="hero-sculpture-b" class="hero-sculpture-img is-back" src="assets/drip-cyan.png" alt="" aria-hidden="true" />
           </div>
         </div>
@@ -999,10 +999,10 @@ body.cursor-hover #cursor-ring{transform:scale(1.5);border-color:var(--accent);b
     </div>
 
     <div class="series-tabs reveal">
-      <button class="series-tab active" data-serie="drip">DRIP</button>
+      <button class="series-tab active" data-serie="drip">SLIME</button>
       <button class="series-tab" data-serie="splash">SPLASH</button>
       <button class="series-tab" data-serie="brush">BRUSH</button>
-      <button class="series-tab" data-serie="spin">SPIN</button>
+      <button class="series-tab" data-serie="spin">TWISTER</button>
     </div>
 
     <div class="series-body">
@@ -1024,7 +1024,7 @@ body.cursor-hover #cursor-ring{transform:scale(1.5);border-color:var(--accent);b
 
       <!-- COLONNE DROITE -->
       <div class="series-right reveal">
-        <h3 class="series-name" id="series-name">DRIP</h3>
+        <h3 class="series-name" id="series-name">SLIME</h3>
         <p class="series-desc" id="series-desc"></p>
         <div class="series-specs">
           <span class="k">MATIÈRE</span><span class="v">Résine époxy main</span>
@@ -1111,10 +1111,10 @@ Un symbole rare de fête, de liberté et de créativité.</p>
         <p class="modal-sub">ÉDITION LIMITÉE · 250€ · PAIEMENT STRIPE</p>
         <select class="modal-field" id="modal-serie">
           <option value="">Choisir une série</option>
-          <option value="drip">DRIP — Coulures suspendues</option>
+          <option value="drip">SLIME — Coulures suspendues</option>
           <option value="splash">SPLASH — Éclaboussure figée</option>
           <option value="brush">BRUSH — Trait de pinceau</option>
-          <option value="spin">SPIN — Tornado spirale</option>
+          <option value="spin">TWISTER — Tornado spirale</option>
         </select>
         <p class="modal-color-label">Couleur</p>
         <div class="modal-swatches" id="modal-swatches">
@@ -1318,7 +1318,7 @@ function createColorSequence(onStep){
 
 const SERIES = {
   drip: {
-    name:'DRIP', dominant:'jaune',
+    name:'SLIME', dominant:'jaune',
     desc:"Sculpture d'une bouteille Carnival laissant s'écouler un flux figé en gouttes suspendues. La fluidité du geste transformée en symbole durable de la création urbaine."
   },
   splash: {
@@ -1330,7 +1330,7 @@ const SERIES = {
     desc:"Un flux qui s'étire comme un trait de pinceau, capturant la continuité du geste entre éclat spontané et précision. La peinture figée dans une trace durable."
   },
   spin: {
-    name:'SPIN', dominant:'rose',
+    name:'TWISTER', dominant:'rose',
     desc:"Un tourbillon de résine qui monte en spirale, énergie pure et mouvement suspendu. La force du Carnival solidifiée dans la matière."
   },
 };
@@ -1661,7 +1661,7 @@ document.querySelectorAll('#series .swatch').forEach(sw => {
   sw.addEventListener('click', () => selectColor(sw.dataset.color));
 });
 
-// Init sélecteur (DRIP / jaune)
+// Init sélecteur (SLIME / jaune)
 seriesDescEl.textContent = SERIES.drip.desc;
 rebuildSeriesCarousel('drip');
 if (!REDUCED) setTimeout(restartSeriesCarousel, PRELOADER_CLOSE_MS);

@@ -2,7 +2,7 @@
 (function shop() {
   const PRICE = 250;
   const CART_KEY = 'ezea-cart';
-  const SERIES_LABELS = { drip: 'DRIP', splash: 'SPLASH', brush: 'BRUSH', spin: 'SPIN' };
+  const SERIES_LABELS = { drip: 'SLIME', splash: 'SPLASH', brush: 'BRUSH', spin: 'TWISTER' };
   const COLOR_LABELS = { cyan: 'Cyan', vert: 'Vert', jaune: 'Jaune', rose: 'Rose' };
 
   let STATE = null;
