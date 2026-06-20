@@ -1306,7 +1306,14 @@ function createColorSequence(onStep){
     rafId = requestAnimationFrame(frame);
   });
 
-  return { start };
+  function stop(){
+    cancelAnimationFrame(rafId);
+    epoch = null;
+    lastStep = -1;
+    hiddenAt = null;
+  }
+
+  return { start, stop };
 }
 
 const SERIES = {
@@ -1606,11 +1613,17 @@ function updateSwatches(color){
   });
 }
 
-function selectColor(color){
+function lockSeriesColor(color){
   const idx = COLOR_ORDER.indexOf(color);
   if (idx < 0) return;
   goToSeriesSlide(idx);
-  pauseAndRestartSeriesCarousel();
+  clearSeriesCarouselTimer();
+  if (stopHeroColorCycle) stopHeroColorCycle();
+  if (syncHeroVisual) syncHeroVisual(currentSerie, color);
+}
+
+function selectColor(color){
+  lockSeriesColor(color);
 }
 
 function selectSerie(serie){
@@ -1638,6 +1651,7 @@ function selectSerie(serie){
   // swatch / sculpture / badge sur couleur dominante
   rebuildSeriesCarousel(serie);
   pauseAndRestartSeriesCarousel();
+  if (restartHeroColorCycle) restartHeroColorCycle();
 }
 
 document.querySelectorAll('.series-tab').forEach(tab => {
@@ -1653,6 +1667,10 @@ rebuildSeriesCarousel('drip');
 if (!REDUCED) setTimeout(restartSeriesCarousel, PRELOADER_CLOSE_MS);
 
 // ── HERO : texte + image verrouillés sur la même horloge ──
+let stopHeroColorCycle = null;
+let restartHeroColorCycle = null;
+let syncHeroVisual = null;
+
 (function heroSync(){
   const heroA = document.getElementById('hero-sculpture-a');
   const heroB = document.getElementById('hero-sculpture-b');
@@ -1688,9 +1706,16 @@ if (!REDUCED) setTimeout(restartSeriesCarousel, PRELOADER_CLOSE_MS);
     frontIsA = !frontIsA;
   }
 
+  syncHeroVisual = function(serie, color){
+    setHeroVisual(COLOR_ORDER.indexOf(color), SERIE_ORDER.indexOf(serie));
+  };
+
   if (REDUCED) return;
 
-  createColorSequence(setHeroVisual).start(PRELOADER_CLOSE_MS);
+  const seq = createColorSequence(setHeroVisual);
+  stopHeroColorCycle = seq.stop;
+  restartHeroColorCycle = () => { seq.stop(); seq.start(0); };
+  seq.start(PRELOADER_CLOSE_MS);
 })();
 
 let pendingOpenCart = false;
