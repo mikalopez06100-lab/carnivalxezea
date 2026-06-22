@@ -1150,6 +1150,176 @@ body {
   font-size: 0.78rem;
 }
 
+/* ── FINANCIAL TERMS ── */
+.financial-section {
+  border-bottom: 1px solid var(--border);
+}
+
+.financial-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  margin: 32px 0;
+}
+
+.financial-card {
+  background: var(--card);
+  padding: 32px 28px;
+  position: relative;
+  overflow: hidden;
+}
+
+.financial-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+
+.financial-card.ezea::before { background: var(--cyan); }
+.financial-card.carnival::before { background: var(--jaune); }
+
+.financial-card-tag {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 10px;
+}
+.financial-card.ezea .financial-card-tag { color: var(--cyan); }
+.financial-card.carnival .financial-card-tag { color: var(--jaune); }
+
+.financial-card-amount {
+  font-family: var(--bebas);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 1;
+  color: var(--white);
+  margin-bottom: 12px;
+}
+
+.financial-card-desc {
+  font-family: var(--inter);
+  font-weight: 300;
+  font-size: 0.85rem;
+  color: var(--grey);
+  line-height: 1.75;
+}
+
+.financial-card-desc strong { color: var(--white); font-weight: 500; }
+
+.financial-flow {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 32px;
+  margin: 32px 0;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  align-items: center;
+  gap: 16px;
+}
+
+.flow-step {
+  text-align: center;
+}
+
+.flow-step-icon {
+  font-size: 1.4rem;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.flow-step-title {
+  font-family: var(--inter);
+  font-weight: 600;
+  font-size: 0.82rem;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+
+.flow-step-sub {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: var(--grey);
+  text-transform: uppercase;
+}
+
+.flow-arrow {
+  font-family: var(--mono);
+  font-size: 1.2rem;
+  color: var(--grey-light);
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.flow-arrow.highlight { color: var(--jaune); }
+
+.avoir-box {
+  background: rgba(245,200,0,0.05);
+  border: 1px solid rgba(245,200,0,0.2);
+  border-left: 3px solid var(--jaune);
+  padding: 24px 28px;
+  margin-top: 8px;
+}
+
+.avoir-box-label {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--jaune);
+  display: block;
+  margin-bottom: 12px;
+}
+
+.avoir-box-title {
+  font-family: var(--bebas);
+  font-size: 1.4rem;
+  color: var(--white);
+  margin-bottom: 10px;
+  line-height: 1;
+}
+
+.avoir-box-text {
+  font-family: var(--inter);
+  font-weight: 300;
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.8;
+}
+.avoir-box-text strong { color: var(--white); font-weight: 500; }
+
+.avoir-example {
+  margin-top: 20px;
+  padding: 16px 20px;
+  background: rgba(245,200,0,0.06);
+  border: 1px solid rgba(245,200,0,0.12);
+}
+
+.avoir-example-text {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--jaune);
+  line-height: 1.8;
+}
+
+.avoir-example-text span {
+  color: rgba(255,255,255,0.5);
+  font-family: var(--inter);
+  font-size: 0.78rem;
+  font-weight: 300;
+}
+
+@media (max-width: 700px) {
+  .financial-grid { grid-template-columns: 1fr; }
+  .financial-flow {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .flow-arrow { transform: rotate(90deg); }
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 700px) {
   .cover { padding: 32px 24px; }
@@ -1744,6 +1914,109 @@ body {
         fabricant et garant de la qualité et de l'authenticité de chaque pièce, sur les
         deux marchés. Carnival décide librement de l'usage qu'il fait du volet B2B —
         Ezéa n'intervient pas dans la relation avec vos comptes professionnels.
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     MODALITÉS FINANCIÈRES
+══════════════════════════════════════════ -->
+<section class="volet-section financial-section" style="background:var(--charcoal);">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Les flux financiers</span>
+      <h2 class="section-title">Qui perçoit quoi</h2>
+    </div>
+
+    <p class="intro-body" style="margin-bottom:40px;">
+      Ce point est fondamental pour que le partenariat soit clair dès le départ.
+      Les deux volets de la collaboration obéissent à des logiques financières distinctes —
+      voici comment les revenus se répartissent entre Ezéa et Carnival.
+    </p>
+
+    <div class="financial-grid">
+      <div class="financial-card ezea">
+        <span class="financial-card-tag">Volet B2C — Vente directe particuliers</span>
+        <div class="financial-card-amount">100% à Ezéa</div>
+        <p class="financial-card-desc">
+          L'intégralité des revenus générés par la vente des 250 pièces au prix public
+          de 250€ via carnivalxezea.com revient à Ezéa. <strong>Carnival ne perçoit aucune
+          commission sur ces ventes.</strong><br><br>
+          En contrepartie de la visibilité apportée par les réseaux Carnival et JoeyStarr,
+          Carnival bénéficie d'un avoir commercial décrit ci-dessous.
+        </p>
+      </div>
+      <div class="financial-card carnival">
+        <span class="financial-card-tag">Volet B2B — Commandes pro Carnival</span>
+        <div class="financial-card-amount">Tarif dégressif</div>
+        <p class="financial-card-desc">
+          Carnival achète les sculptures directement à Ezéa au tarif professionnel
+          convenu (190€ / 170€ / ~150€ HT selon volume) et gère librement leur
+          distribution dans son réseau. <strong>La marge commerciale éventuelle
+          reste intégralement du côté de Carnival.</strong>
+        </p>
+      </div>
+    </div>
+
+    <div class="financial-flow">
+      <div class="flow-step">
+        <span class="flow-step-icon">🛒</span>
+        <div class="flow-step-title">Vente des 250 pièces</div>
+        <div class="flow-step-sub">250€ × pièce · public</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <span class="flow-step-icon">🎨</span>
+        <div class="flow-step-title">Revenus intégraux</div>
+        <div class="flow-step-sub">Perçus par Ezéa</div>
+      </div>
+      <div class="flow-arrow highlight">→ 10%</div>
+      <div class="flow-step">
+        <span class="flow-step-icon">🏷️</span>
+        <div class="flow-step-title">Avoir Carnival</div>
+        <div class="flow-step-sub">En produits de com</div>
+      </div>
+    </div>
+
+    <div class="avoir-box">
+      <span class="avoir-box-label">La contrepartie pour Carnival</span>
+      <div class="avoir-box-title">10% du chiffre d'affaires B2C en avoir sur produits de communication</div>
+      <p class="avoir-box-text">
+        En échange de la visibilité et du relais communication apportés par Carnival
+        et JoeyStarr, Ezéa reverse à Carnival <strong>un avoir équivalent à 10%
+        du chiffre d'affaires généré par les ventes grand public</strong> (volet B2C).
+        Cet avoir est utilisable exclusivement sur des <strong>achats de produits
+        de communication Carnival</strong> — bouteilles, goodies, supports événementiels
+        ou tout autre produit com de la marque que Carnival voudra définir.
+        <br><br>
+        Ce mécanisme n'est pas une commission en cash — c'est un avoir commercial
+        qui renforce l'usage de la marque Carnival dans les actions de communication
+        futures d'Ezéa, et crée un lien commercial durable entre les deux parties
+        au-delà du simple drop.
+      </p>
+
+      <div class="avoir-example">
+        <p class="avoir-example-text">
+          Exemple chiffré :
+          <span>Si les 250 pièces à 250€ sont intégralement vendues, le CA B2C total est de 62 500€.</span><br>
+          Avoir Carnival = <strong>10% × 62 500€ = 6 250€</strong>
+          <span>en produits de communication Carnival, utilisables par Ezéa.</span><br><br>
+          Sell-out partiel (ex. 150 pièces) :
+          <span>150 × 250€ = 37 500€ → Avoir Carnival =</span> <strong>3 750€</strong>
+          <span>en produits com.</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="highlight-box" style="margin-top:8px;">
+      <p class="highlight-box-text">
+        <strong>Ce que ça signifie concrètement pour Carnival :</strong> vous apportez
+        votre réseau et votre image, vous ne déboursez rien sur le volet B2C, et vous
+        récupérez un avoir utilisable sur vos propres produits de communication.
+        Le risque financier est nul — vous êtes rémunérés en visibilité de marque,
+        pas en cash sorti de trésorerie.
       </p>
     </div>
   </div>
