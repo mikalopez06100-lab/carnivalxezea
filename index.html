@@ -663,20 +663,40 @@ img[src=""],img:not([src]){min-height:1px;}
   padding:48px 40px 32px;position:relative;
   transform:translateY(28px);
   transition:transform .3s cubic-bezier(0.4,0,0.2,1);
-  overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;
-  touch-action:pan-y;
 }
 #modal.open .modal-card{transform:translateY(0);}
+/* Étape numéro : hauteur fixe + zone scroll dédiée */
+.modal-card.is-number-step{
+  display:flex;flex-direction:column;
+  max-height:min(90dvh,900px);
+  min-height:0;overflow:hidden;
+  padding-bottom:0;
+}
+#form-content{
+  flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden;
+}
 #form-content[hidden]{display:none !important;}
 #modal-step-number{display:none;}
-#modal-step-number.is-active{display:block;}
-.modal-step-footer{
-  position:sticky;bottom:0;z-index:3;
-  margin:20px -40px -32px;padding:16px 40px calc(20px + env(safe-area-inset-bottom,0));
-  background:linear-gradient(to top,var(--gris-chaud) 78%,rgba(26,26,26,0));
-  border-top:1px solid rgba(255,255,255,0.08);
+#modal-step-number.is-active{
+  flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden;
 }
-.modal-step-footer .modal-btn{margin-top:0;}
+.modal-number-head{flex-shrink:0;}
+.modal-number-scroll{
+  flex:1;min-height:0;
+  overflow-y:scroll;overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior-y:contain;
+  touch-action:pan-y;
+  padding-bottom:8px;
+}
+.modal-number-foot{
+  flex-shrink:0;
+  padding:14px 0 calc(16px + env(safe-area-inset-bottom,0));
+  border-top:1px solid rgba(255,255,255,0.08);
+  background:var(--gris-chaud);
+}
+.modal-number-foot .modal-btn{margin-top:0;}
+html.modal-open,html.modal-open body{overflow:hidden;height:100%;}
 .modal-close{
   position:absolute;top:18px;right:22px;
   font-family:'Space Mono',monospace;font-size:1.4rem;line-height:1;
@@ -919,20 +939,21 @@ body.cursor-hover #cursor-ring{transform:scale(1.5);border-color:var(--accent);b
   .admin-model-actions{margin-left:0;width:100%;}
   #atelier{height:50vh;}
   .atelier-text{bottom:24px;left:20px;right:20px;}
-  #modal{align-items:flex-end;padding:0;}
+  #modal{align-items:flex-end;padding:0;overflow:hidden;}
   .modal-card{
-    max-height:96dvh;width:100%;max-width:100%;
-    padding:24px 20px 0;margin:0;
+    width:100%;max-width:100%;margin:0;
     border-left:none;border-right:none;border-bottom:none;
     border-radius:14px 14px 0 0;
     transform:none !important;
+    padding:20px 20px 0;
   }
-  #modal-step-number .modal-sub{margin-bottom:16px;}
-  .modal-step-footer{
-    margin:16px -20px 0;
-    padding:14px 20px calc(16px + env(safe-area-inset-bottom,0));
-    background:var(--gris-chaud);
+  .modal-card.is-number-step{
+    height:92dvh;max-height:92dvh;min-height:0;
   }
+  .modal-card:not(.is-number-step){
+    max-height:92dvh;overflow-y:auto;-webkit-overflow-scrolling:touch;
+  }
+  #modal-step-number .modal-sub{margin-bottom:12px;}
   #modal-piece-grid{grid-template-columns:repeat(5,1fr);gap:6px;}
   #modal-piece-grid .piece-cell{font-size:.78rem;min-height:46px;}
   #faq{padding:60px 20px;}
@@ -1173,16 +1194,20 @@ Un symbole rare de fête, de liberté et de créativité.</p>
       </div>
 
       <div id="modal-step-number">
-        <button type="button" class="modal-btn-secondary" id="modal-back">← Retour</button>
-        <h3>CHOISISSEZ VOTRE NUMÉRO</h3>
-        <p class="modal-sub" id="modal-piece-sub">—</p>
-        <div class="piece-grid" id="modal-piece-grid"></div>
-        <div class="piece-legend" style="margin-top:20px;margin-bottom:8px;">
-          <span><i class="lg lg-free"></i> Disponible</span>
-          <span><i class="lg lg-sel"></i> Votre choix</span>
-          <span><i class="lg lg-taken"></i> Réservé</span>
+        <div class="modal-number-head">
+          <button type="button" class="modal-btn-secondary" id="modal-back">← Retour</button>
+          <h3>CHOISISSEZ VOTRE NUMÉRO</h3>
+          <p class="modal-sub" id="modal-piece-sub">—</p>
         </div>
-        <div class="modal-step-footer">
+        <div class="modal-number-scroll" id="modal-number-scroll">
+          <div class="piece-grid" id="modal-piece-grid"></div>
+          <div class="piece-legend" style="margin-top:16px;margin-bottom:4px;">
+            <span><i class="lg lg-free"></i> Disponible</span>
+            <span><i class="lg lg-sel"></i> Votre choix</span>
+            <span><i class="lg lg-taken"></i> Réservé</span>
+          </div>
+        </div>
+        <div class="modal-number-foot">
           <button type="button" class="modal-btn" id="modal-add-cart" disabled>AJOUTER AU PANIER</button>
         </div>
       </div>
@@ -1794,10 +1819,12 @@ document.getElementById('scarcity-num').textContent = PIECES_RESTANTES;
 
 // ── SECTION: MODAL (couleur → grille numéro) ──
 const modal = document.getElementById('modal');
+const modalCard = modal.querySelector('.modal-card');
 const formContent = document.getElementById('form-content');
 const modalSuccess = document.getElementById('modal-success');
 const modalStepColor = document.getElementById('modal-step-color');
 const modalStepNumber = document.getElementById('modal-step-number');
+const modalNumberScroll = document.getElementById('modal-number-scroll');
 const selSerie = document.getElementById('modal-serie');
 const selCouleur = document.getElementById('modal-couleur');
 const modalPieceGrid = document.getElementById('modal-piece-grid');
@@ -1814,31 +1841,20 @@ let modalScrollY = 0;
 
 function lockBodyScroll(){
   modalScrollY = window.scrollY || document.documentElement.scrollTop;
-  document.body.style.position = 'fixed';
-  document.body.style.top = '-' + modalScrollY + 'px';
-  document.body.style.left = '0';
-  document.body.style.right = '0';
-  document.body.style.width = '100%';
-  document.body.style.overflow = 'hidden';
+  document.documentElement.classList.add('modal-open');
 }
 
 function unlockBodyScroll(){
-  document.body.style.position = '';
-  document.body.style.top = '';
-  document.body.style.left = '';
-  document.body.style.right = '';
-  document.body.style.width = '';
-  document.body.style.overflow = '';
+  document.documentElement.classList.remove('modal-open');
   window.scrollTo(0, modalScrollY);
 }
 
 function showModalStep(step){
+  const isNumber = step === 'number';
   modalStepColor.hidden = step !== 'color';
-  modalStepNumber.classList.toggle('is-active', step === 'number');
-  if (step === 'number'){
-    const card = modal.querySelector('.modal-card');
-    if (card) card.scrollTop = 0;
-  }
+  modalStepNumber.classList.toggle('is-active', isNumber);
+  modalCard.classList.toggle('is-number-step', isNumber);
+  if (isNumber && modalNumberScroll) modalNumberScroll.scrollTop = 0;
 }
 
 function updateModalSwatches(color){
@@ -1967,8 +1983,7 @@ modalAddCartBtn.addEventListener('click', () => {
   }
   formContent.hidden = true;
   modalSuccess.classList.add('show');
-  const card = modal.querySelector('.modal-card');
-  if (card) card.scrollTop = 0;
+  modalCard.classList.remove('is-number-step');
 });
 
 document.querySelectorAll('[data-open-modal]').forEach(btn => {
@@ -1980,7 +1995,15 @@ document.getElementById('success-close').addEventListener('click', () => {
   openCart();
 });
 modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
-modal.querySelector('.modal-card').addEventListener('click', (e) => { e.stopPropagation(); });
+modalCard.addEventListener('click', (e) => { e.stopPropagation(); });
+
+// iOS : autoriser le scroll uniquement dans les zones prévues
+document.addEventListener('touchmove', (e) => {
+  if (!modal.classList.contains('open')) return;
+  if (e.target.closest('.modal-number-scroll')) return;
+  if (!modalCard.classList.contains('is-number-step') && e.target.closest('.modal-card')) return;
+  e.preventDefault();
+}, { passive: false });
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
 });
