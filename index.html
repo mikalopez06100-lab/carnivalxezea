@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Carnival × Ezéa — Stop the Motion. Own the Moment.</title>
-<meta name="description" content="Édition limitée 100 pièces. Sculptures street art en résine époxy coulée à la main. Carnival Sun Juice × Ezéa, approuvées par JoeyStarr." />
+<meta name="description" content="Édition limitée 250 pièces. Sculptures street art en résine époxy coulée à la main. Carnival Sun Juice × Ezéa, approuvées par JoeyStarr." />
 
 <!-- ════════════ GOOGLE FONTS ════════════ -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -445,7 +445,7 @@ img[src=""],img:not([src]){min-height:1px;}
   color:rgba(255,255,255,0.45);margin-top:12px;letter-spacing:.04em;
 }
 .piece-grid{
-  display:grid;grid-template-columns:repeat(5,1fr);
+  display:grid;grid-template-columns:repeat(10,1fr);
   gap:12px;max-width:560px;margin:0 auto;
 }
 .piece-cell{
@@ -891,7 +891,7 @@ body.cursor-hover #cursor-ring{transform:scale(1.5);border-color:var(--accent);b
   #series{padding:80px 20px;}
   .joey-text-col{padding:40px 24px;}
   .cta-series{width:100%;justify-content:center;}
-  .piece-grid{gap:8px;}
+  .piece-grid{gap:8px;grid-template-columns:repeat(5,1fr);}
   .piece-cell{font-size:.85rem;}
   .piece-legend{gap:14px;font-size:.56rem;}
   .admin-card{padding:24px 16px;}
@@ -955,12 +955,12 @@ body.cursor-hover #cursor-ring{transform:scale(1.5);border-color:var(--accent);b
   <canvas id="particles"></canvas>
   <div class="hero-inner">
     <div class="hero-text">
-      <p class="eyebrow">ÉDITION LIMITÉE · 100 PIÈCES · FRANCE</p>
+      <p class="eyebrow">ÉDITION LIMITÉE · 250 PIÈCES · FRANCE</p>
       <h1>
         <span class="l1">STOP THE MOTION.</span>
         <span class="l2">OWN THE MOMENT.</span>
       </h1>
-      <p class="hero-sub">4 séries. 25 pièces chacune. Une sculpture Carnival figée dans la résine, approuvée par JoeyStarr.</p>
+      <p class="hero-sub">5 séries. 50 pièces chacune. Une sculpture Carnival figée dans la résine, approuvée par JoeyStarr.</p>
       <button class="cta-hero" id="cta-discover">Découvrir les séries <span class="arrow">↓</span></button>
     </div>
     <div class="hero-visual">
@@ -980,11 +980,11 @@ body.cursor-hover #cursor-ring{transform:scale(1.5);border-color:var(--accent);b
 <!-- ════════════ SECTION: STATS ════════════ -->
 <section id="stats">
   <div class="stats-row">
-    <div class="stat reveal"><div class="num" data-count="100">0</div><div class="lbl">Pièces au total</div></div>
+    <div class="stat reveal"><div class="num" data-count="250">0</div><div class="lbl">Pièces au total</div></div>
     <div class="stat-sep"></div>
-    <div class="stat reveal"><div class="num" data-count="4">0</div><div class="lbl">Séries</div></div>
+    <div class="stat reveal"><div class="num" data-count="5">0</div><div class="lbl">Séries</div></div>
     <div class="stat-sep"></div>
-    <div class="stat reveal"><div class="num" data-count="25">0</div><div class="lbl">Pièces par série</div></div>
+    <div class="stat reveal"><div class="num" data-count="50">0</div><div class="lbl">Pièces par série</div></div>
     <div class="stat-sep"></div>
     <div class="stat reveal"><div class="num">15j</div><div class="lbl">Délai fabrication</div></div>
   </div>
@@ -994,7 +994,7 @@ body.cursor-hover #cursor-ring{transform:scale(1.5);border-color:var(--accent);b
 <section id="series">
   <div class="series-wrap">
     <div class="series-head reveal">
-      <p class="eyebrow">4 CRÉATIONS ORIGINALES</p>
+      <p class="eyebrow">5 CRÉATIONS ORIGINALES</p>
       <h2>CHOISISSEZ VOTRE SÉRIE</h2>
     </div>
 
@@ -1003,6 +1003,7 @@ body.cursor-hover #cursor-ring{transform:scale(1.5);border-color:var(--accent);b
       <button class="series-tab" data-serie="splash">SPLASH</button>
       <button class="series-tab" data-serie="brush">BRUSH</button>
       <button class="series-tab" data-serie="spin">TWISTER</button>
+      <button class="series-tab" data-serie="drop">DROP</button>
     </div>
 
     <div class="series-body">
@@ -1018,7 +1019,7 @@ body.cursor-hover #cursor-ring{transform:scale(1.5);border-color:var(--accent);b
             <button class="swatch active" data-color="jaune" aria-label="Jaune"></button>
             <button class="swatch" data-color="rose" aria-label="Rose"></button>
           </div>
-          <div class="avail-badge" id="avail-badge">JAUNE — 25 / 25 pièces disponibles</div>
+          <div class="avail-badge" id="avail-badge">JAUNE — 50 / 50 pièces disponibles</div>
         </div>
       </div>
 
@@ -1029,7 +1030,7 @@ body.cursor-hover #cursor-ring{transform:scale(1.5);border-color:var(--accent);b
         <div class="series-specs">
           <span class="k">MATIÈRE</span><span class="v">Résine époxy main</span>
           <span class="k">FORMAT</span><span class="v">25 cm hauteur</span>
-          <span class="k">ÉDITION</span><span class="v">25 pièces numérotées</span>
+          <span class="k">ÉDITION</span><span class="v">50 pièces numérotées</span>
           <span class="k">ORIGINE</span><span class="v">Fabriquée en France</span>
         </div>
         <img class="spec-stamp img-stamp" src="assets/stamp-joey.png" alt="Approved by JoeyStarr" />
@@ -1043,11 +1044,11 @@ body.cursor-hover #cursor-ring{transform:scale(1.5);border-color:var(--accent);b
     <!-- ── APERÇU DISPONIBILITÉ NUMÉROS ── -->
     <div class="piece-section reveal">
       <div class="piece-head">
-        <p class="eyebrow">VOTRE PIÈCE NUMÉROTÉE · 1 — 25</p>
+        <p class="eyebrow">VOTRE PIÈCE NUMÉROTÉE · 1 — 50</p>
         <h3 class="piece-title">DISPONIBILITÉ DES NUMÉROS</h3>
         <p class="piece-sub" id="piece-sub">Cliquez « Ajouter au panier » pour choisir votre numéro</p>
       </div>
-      <div class="piece-grid preview" id="piece-grid"><!-- 25 cases injectées en JS --></div>
+      <div class="piece-grid preview" id="piece-grid"><!-- 50 cases injectées en JS --></div>
       <div class="piece-legend">
         <span><i class="lg lg-free"></i> Disponible</span>
         <span><i class="lg lg-sel"></i> Votre choix</span>
@@ -1084,9 +1085,9 @@ Un symbole rare de fête, de liberté et de créativité.</p>
 <!-- ════════════ SECTION: RARÉFACTION ════════════ -->
 <section id="scarcity">
   <p class="scarcity-top">ÉDITION NON RÉÉDITÉE</p>
-  <div class="scarcity-num" id="scarcity-num">100</div>
+  <div class="scarcity-num" id="scarcity-num">250</div>
   <p class="scarcity-label">PIÈCES DISPONIBLES</p>
-  <p class="scarcity-precision">25 par série · 4 séries · non renouvelé</p>
+  <p class="scarcity-precision">50 par série · 5 séries · non renouvelé</p>
   <button class="cta-scarcity" id="cta-scarcity-cart" type="button">AJOUTER AU PANIER — 250€</button>
 </section>
 
@@ -1115,6 +1116,7 @@ Un symbole rare de fête, de liberté et de créativité.</p>
           <option value="splash">SPLASH — Éclaboussure figée</option>
           <option value="brush">BRUSH — Trait de pinceau</option>
           <option value="spin">TWISTER — Tornado spirale</option>
+          <option value="drop">DROP — Goutte suspendue</option>
         </select>
         <p class="modal-color-label">Couleur</p>
         <div class="modal-swatches" id="modal-swatches">
@@ -1239,15 +1241,15 @@ Tous droits réservés.</div>
 // CONFIGURATION — MODIFIER CES VALEURS
 // ═══════════════════════════════════════
 
-const PIECES_RESTANTES = 100; // total affiché dans section raréfaction (texte marketing)
+const PIECES_RESTANTES = 250; // total affiché dans section raréfaction (texte marketing)
 
-const TOTAL_PER_MODEL = 25;
+const TOTAL_PER_MODEL = 50;
 
 // ── DONNÉES SÉRIES ──
 const COLOR_HEX = { cyan:'#00BFFF', vert:'#5FD12A', jaune:'#F5C800', rose:'#FF1493' };
 const COLOR_LABEL = { cyan:'CYAN', vert:'VERT', jaune:'JAUNE', rose:'ROSE' };
 const COLOR_ORDER = ['cyan', 'vert', 'jaune', 'rose'];
-const SERIE_ORDER = ['drip', 'splash', 'brush', 'spin'];
+const SERIE_ORDER = ['drip', 'splash', 'brush', 'spin', 'drop'];
 const COLOR_STEP_MS = 2000;
 const PRELOADER_CLOSE_MS = 2800;
 
@@ -1332,6 +1334,10 @@ const SERIES = {
   spin: {
     name:'TWISTER', dominant:'rose',
     desc:"Un tourbillon de résine qui monte en spirale, énergie pure et mouvement suspendu. La force du Carnival solidifiée dans la matière."
+  },
+  drop: {
+    name:'DROP', dominant:'cyan',
+    desc:"La goutte parfaite figée entre deux instants. Un filet de résine suspendu qui s'épanouit en goutte au sommet du socle, entre chute et éclat."
   },
 };
 
@@ -1573,7 +1579,7 @@ function updateBadge(serie, color){
   availBadge.textContent = COLOR_LABEL[color] + ' — ' + avail + ' / ' + TOTAL_PER_MODEL + ' pièces disponibles';
 }
 
-// ── GRILLE LOTO : rendu des 25 cases pour le modèle actif ──
+// ── GRILLE LOTO : rendu des 50 cases pour le modèle actif ──
 const pieceGrid = document.getElementById('piece-grid');
 const pieceSub = document.getElementById('piece-sub');
 const pieceSoldout = document.getElementById('piece-soldout');

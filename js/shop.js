@@ -2,7 +2,8 @@
 (function shop() {
   const PRICE = 250;
   const CART_KEY = 'ezea-cart';
-  const SERIES_LABELS = { drip: 'SLIME', splash: 'SPLASH', brush: 'BRUSH', spin: 'TWISTER' };
+  const TOTAL_PER_MODEL = 50;
+  const SERIES_LABELS = { drip: 'SLIME', splash: 'SPLASH', brush: 'BRUSH', spin: 'TWISTER', drop: 'DROP' };
   const COLOR_LABELS = { cyan: 'Cyan', vert: 'Vert', jaune: 'Jaune', rose: 'Rose' };
 
   let STATE = null;
@@ -36,8 +37,8 @@
   };
 
   window.availCount = function availCount(serie) {
-    if (!STATE?.[serie]) return 25;
-    return 25 - Object.keys(STATE[serie].pieces || {}).length;
+    if (!STATE?.[serie]) return TOTAL_PER_MODEL;
+    return TOTAL_PER_MODEL - Object.keys(STATE[serie].pieces || {}).length;
   };
 
   window.isPieceTaken = function isPieceTaken(serie, n) {

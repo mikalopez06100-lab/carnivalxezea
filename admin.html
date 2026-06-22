@@ -42,7 +42,7 @@ button:hover,.btn:hover{border-color:var(--accent);color:var(--accent);}
 .mini{font-size:.58rem;padding:6px 10px;}
 .toggle.on{background:var(--vert);border-color:var(--vert);color:var(--black);}
 .toggle.off{color:rgba(255,255,255,.4);}
-.grid{display:grid;grid-template-columns:repeat(13,1fr);gap:5px;max-width:560px;}
+.grid{display:grid;grid-template-columns:repeat(10,1fr);gap:5px;max-width:700px;}
 .cell{
   aspect-ratio:1;border:1px solid rgba(255,255,255,.15);background:transparent;
   font-family:'Space Mono',monospace;font-size:.58rem;color:rgba(255,255,255,.65);
@@ -78,7 +78,7 @@ a{color:var(--accent);font-family:'Space Mono',monospace;font-size:.65rem;letter
     <div class="toolbar">
       <button class="btn primary" id="save-btn">Publier en ligne</button>
       <button class="btn" id="reload-btn">Recharger</button>
-      <button class="btn" id="random-all">Aléatoire 5-7 (tous)</button>
+      <button class="btn" id="random-all">Aléatoire 10-14 (tous)</button>
       <button class="btn danger" id="logout-btn">Déconnexion</button>
     </div>
     <p class="status" id="save-status"></p>
@@ -97,9 +97,10 @@ const SERIES = {
   splash: { name: 'SPLASH', color: '#5FD12A' },
   brush: { name: 'BRUSH', color: '#00BFFF' },
   spin: { name: 'TWISTER', color: '#FF1493' },
+  drop: { name: 'DROP', color: '#5FD12A' },
 };
 const SERIES_KEYS = Object.keys(SERIES);
-const TOTAL = 25;
+const TOTAL = 50;
 let STATE = null;
 
 function setStatus(el, msg, ok) {
@@ -139,7 +140,7 @@ function cycle(key, n) {
 }
 
 function randomize(key) {
-  const target = 5 + Math.floor(Math.random() * 3);
+  const target = 10 + Math.floor(Math.random() * 5);
   const nums = new Set();
   while (nums.size < target) nums.add(1 + Math.floor(Math.random() * TOTAL));
   STATE[key].pieces = {};

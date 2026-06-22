@@ -2,48 +2,63 @@
   "drip": {
     "onSale": true,
     "pieces": {
-      "2": "fake",
-      "9": "fake",
-      "10": "fake",
-      "11": "fake",
-      "16": "fake",
-      "17": "fake",
-      "24": "fake"
+      "4": "fake",
+      "18": "fake",
+      "20": "fake",
+      "22": "fake",
+      "32": "fake",
+      "34": "fake",
+      "41": "fake",
+      "48": "fake"
     },
     "holds": {}
   },
   "splash": {
     "onSale": true,
     "pieces": {
-      "3": "fake",
-      "4": "fake",
-      "7": "fake",
-      "9": "fake",
-      "13": "fake"
+      "6": "fake",
+      "8": "fake",
+      "14": "fake",
+      "18": "fake",
+      "26": "fake",
+      "33": "fake"
     },
     "holds": {}
   },
   "brush": {
     "onSale": true,
     "pieces": {
-      "2": "fake",
-      "5": "fake",
-      "8": "fake",
+      "4": "fake",
       "10": "fake",
-      "13": "fake",
-      "24": "fake"
+      "16": "fake",
+      "20": "fake",
+      "26": "fake",
+      "38": "fake",
+      "48": "fake"
     },
     "holds": {}
   },
   "spin": {
     "onSale": true,
     "pieces": {
-      "7": "fake",
-      "10": "fake",
-      "15": "fake",
-      "16": "fake",
+      "14": "fake",
       "20": "fake",
-      "25": "fake"
+      "30": "fake",
+      "32": "fake",
+      "40": "fake",
+      "50": "fake"
+    },
+    "holds": {}
+  },
+  "drop": {
+    "onSale": true,
+    "pieces": {
+      "5": "fake",
+      "12": "fake",
+      "23": "fake",
+      "31": "fake",
+      "38": "fake",
+      "45": "fake"
     },
     "holds": {}
   }

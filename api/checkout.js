@@ -1,6 +1,6 @@
 const Stripe = require('stripe');
 const { placeHolds } = require('../lib/inventory');
-const { PRICE_CENTS, SERIES_LABELS, COLOR_LABELS } = require('../lib/constants');
+const { PRICE_CENTS, SERIES_LABELS, COLOR_LABELS, TOTAL_PER_MODEL } = require('../lib/constants');
 
 function getStripe() {
   const key = process.env.STRIPE_SECRET_KEY;
@@ -29,7 +29,7 @@ function validateItems(items) {
     const numero = parseInt(raw.numero, 10);
     if (!SERIES_LABELS[serie]) throw new Error(`Série invalide : ${serie}`);
     if (!COLOR_LABELS[color]) throw new Error(`Couleur invalide : ${color}`);
-    if (!Number.isInteger(numero) || numero < 1 || numero > 25) {
+    if (!Number.isInteger(numero) || numero < 1 || numero > TOTAL_PER_MODEL) {
       throw new Error(`Numéro invalide : ${numero}`);
     }
     const key = `${serie}:${numero}`;
