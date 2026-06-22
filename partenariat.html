@@ -1,0 +1,1821 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposition de partenariat — Carnival × Ezéa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black: #0A0A0A;
+  --charcoal: #141414;
+  --card: #1C1C1C;
+  --border: rgba(255,255,255,0.07);
+  --white: #FFFFFF;
+  --grey: rgba(255,255,255,0.45);
+  --grey-light: rgba(255,255,255,0.25);
+  --cyan: #00BFFF;
+  --vert: #5FD12A;
+  --jaune: #F5C800;
+  --rose: #FF1493;
+  --or: #C8A832;
+  --bebas: 'Bebas Neue', sans-serif;
+  --inter: 'Inter', sans-serif;
+  --mono: 'Space Mono', monospace;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--inter);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media print {
+  body { background: #fff; color: #000; }
+  .no-print { display: none; }
+}
+
+/* ── COVER ── */
+.cover {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 60px;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+}
+
+.cover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 80% 30%, rgba(245,200,0,0.05) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 40% at 20% 80%, rgba(0,191,255,0.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.cover-bg-text {
+  position: absolute;
+  font-family: var(--bebas);
+  font-size: clamp(6rem, 15vw, 14rem);
+  color: rgba(255,255,255,0.025);
+  white-space: nowrap;
+  bottom: -20px;
+  left: -10px;
+  letter-spacing: 0.04em;
+  pointer-events: none;
+  user-select: none;
+}
+
+.cover-top {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.cover-badge {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--grey-light);
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 8px 16px;
+}
+
+.cover-date {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: var(--grey-light);
+  text-align: right;
+}
+
+.cover-center {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px 0;
+}
+
+.cover-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--jaune);
+  margin-bottom: 20px;
+}
+
+.cover-title {
+  font-family: var(--bebas);
+  font-size: clamp(3.5rem, 8.5vw, 7.5rem);
+  line-height: 0.95;
+  letter-spacing: 0.01em;
+  margin-bottom: 32px;
+}
+
+.cover-title .line-1 { color: var(--white); display: block; }
+.cover-title .line-2 { color: var(--jaune); display: block; }
+.cover-title .line-3 { color: rgba(255,255,255,0.35); display: block; font-size: 0.42em; letter-spacing: 0.06em; margin-top: 14px; font-family: var(--inter); font-weight: 300; }
+
+.cover-subtitle {
+  font-family: var(--inter);
+  font-weight: 300;
+  font-size: 1.05rem;
+  color: var(--grey);
+  max-width: 560px;
+  line-height: 1.75;
+}
+
+.cover-bottom {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-top: 40px;
+  border-top: 1px solid var(--border);
+}
+
+.cover-from {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--grey-light);
+  line-height: 1.8;
+}
+
+.cover-confidential {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.15);
+  text-align: right;
+}
+
+/* ── LAYOUT GÉNÉRAL ── */
+.container {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 80px 40px;
+}
+
+.section-header {
+  margin-bottom: 48px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.section-tag {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--jaune);
+  display: block;
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-family: var(--bebas);
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  line-height: 1;
+  color: var(--white);
+}
+
+/* ── INTRO ── */
+.intro-section {
+  background: var(--charcoal);
+  border-bottom: 1px solid var(--border);
+}
+
+.intro-lead {
+  font-family: var(--bebas);
+  font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+  line-height: 1.15;
+  color: var(--white);
+  margin-bottom: 28px;
+}
+
+.intro-lead em { color: var(--jaune); font-style: normal; }
+
+.intro-body {
+  font-family: var(--inter);
+  font-weight: 300;
+  font-size: 1rem;
+  color: var(--grey);
+  line-height: 1.85;
+  max-width: 680px;
+}
+
+.intro-body strong { color: var(--white); font-weight: 500; }
+
+/* ── DEUX VOLETS — TOGGLE VISUEL ── */
+.volets-banner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  margin-top: 48px;
+}
+
+.volet-tag {
+  background: var(--card);
+  padding: 28px 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.volet-tag::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.volet-tag.b2c::before { background: var(--cyan); }
+.volet-tag.b2b::before { background: var(--jaune); }
+
+.volet-num {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 10px;
+}
+.volet-tag.b2c .volet-num { color: var(--cyan); }
+.volet-tag.b2b .volet-num { color: var(--jaune); }
+
+.volet-title {
+  font-family: var(--bebas);
+  font-size: 1.8rem;
+  line-height: 1.1;
+  color: var(--white);
+  margin-bottom: 10px;
+}
+
+.volet-desc {
+  font-family: var(--inter);
+  font-weight: 300;
+  font-size: 0.82rem;
+  color: var(--grey);
+  line-height: 1.6;
+}
+
+/* ── BLOC VOLET (sections principales) ── */
+.volet-section {
+  border-bottom: 1px solid var(--border);
+}
+
+.volet-section.b2c { background: var(--black); }
+.volet-section.b2b { background: var(--charcoal); }
+
+.volet-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.volet-pill {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border: 1px solid;
+}
+.volet-pill.b2c { color: var(--cyan); border-color: rgba(0,191,255,0.35); }
+.volet-pill.b2b { color: var(--jaune); border-color: rgba(245,200,0,0.35); }
+
+/* ── FUNNEL DIAGRAM ── */
+.funnel-diagram {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin: 40px 0;
+  flex-wrap: wrap;
+}
+
+.funnel-step {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 24px 28px;
+  flex: 1;
+  min-width: 180px;
+  text-align: center;
+}
+
+.funnel-step-label {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--grey-light);
+  margin-bottom: 10px;
+  display: block;
+}
+
+.funnel-step-title {
+  font-family: var(--inter);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--white);
+}
+
+.funnel-arrow {
+  font-family: var(--mono);
+  font-size: 1.4rem;
+  color: var(--grey-light);
+  padding: 0 16px;
+  flex-shrink: 0;
+}
+
+/* ── CIBLE BOX ── */
+.cible-box {
+  background: rgba(0,191,255,0.05);
+  border: 1px solid rgba(0,191,255,0.15);
+  border-left: 3px solid var(--cyan);
+  padding: 22px 26px;
+  margin: 32px 0;
+}
+
+.cible-box.jaune {
+  background: rgba(245,200,0,0.05);
+  border-color: rgba(245,200,0,0.15);
+  border-left-color: var(--jaune);
+}
+
+.cible-box-label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  display: block;
+  margin-bottom: 10px;
+}
+.cible-box.jaune .cible-box-label { color: var(--jaune); }
+
+.cible-box-text {
+  font-family: var(--inter);
+  font-weight: 300;
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.75;
+}
+.cible-box-text strong { color: var(--white); font-weight: 500; }
+
+/* ── PRODUIT CARDS (séries) ── */
+.series-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  margin: 32px 0;
+}
+
+.serie-card {
+  background: var(--card);
+  padding: 24px 22px;
+  position: relative;
+  overflow: hidden;
+}
+
+.serie-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.serie-card.drip::before { background: var(--jaune); }
+.serie-card.splash::before { background: var(--vert); }
+.serie-card.brush::before { background: var(--cyan); }
+.serie-card.spin::before { background: var(--rose); }
+
+.serie-name {
+  font-family: var(--bebas);
+  font-size: 1.9rem;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.serie-card.drip .serie-name { color: var(--jaune); }
+.serie-card.splash .serie-name { color: var(--vert); }
+.serie-card.brush .serie-name { color: var(--cyan); }
+.serie-card.spin .serie-name { color: var(--rose); }
+
+.serie-desc {
+  font-family: var(--inter);
+  font-weight: 300;
+  font-size: 0.78rem;
+  color: var(--grey);
+  line-height: 1.6;
+}
+
+/* ── PRICING TABLE B2B — pièce maîtresse ── */
+.pricing-table {
+  margin: 40px 0;
+  border: 1px solid var(--border);
+}
+
+.pricing-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  border-bottom: 1px solid var(--border);
+}
+.pricing-row:last-child { border-bottom: none; }
+
+.pricing-row.header {
+  background: var(--card);
+}
+
+.pricing-cell {
+  padding: 24px 28px;
+  border-right: 1px solid var(--border);
+}
+.pricing-cell:last-child { border-right: none; }
+
+.pricing-row.header .pricing-cell {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--grey-light);
+}
+
+.pricing-row.tier .pricing-cell:first-child {
+  font-family: var(--inter);
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--white);
+}
+
+.pricing-volume {
+  font-family: var(--bebas);
+  font-size: 1.6rem;
+  color: var(--white);
+  line-height: 1;
+}
+
+.pricing-volume-label {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--grey-light);
+  margin-top: 4px;
+  display: block;
+}
+
+.pricing-price {
+  font-family: var(--bebas);
+  font-size: 2.2rem;
+  line-height: 1;
+}
+.pricing-row.tier:nth-child(2) .pricing-price { color: var(--cyan); }
+.pricing-row.tier:nth-child(3) .pricing-price { color: var(--vert); }
+.pricing-row.tier:nth-child(4) .pricing-price { color: var(--jaune); }
+
+.pricing-price-sub {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  color: var(--grey-light);
+  margin-top: 6px;
+  display: block;
+}
+
+.pricing-savings {
+  font-family: var(--inter);
+  font-weight: 400;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.65);
+}
+
+.pricing-savings strong {
+  color: var(--white);
+  font-weight: 600;
+}
+
+/* ── AVANTAGE GRID (pourquoi c'est bon pour Carnival) ── */
+.avantage-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  margin: 40px 0;
+}
+
+.avantage-item {
+  background: var(--card);
+  padding: 26px 26px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.avantage-icon {
+  width: 34px;
+  height: 34px;
+  background: rgba(245,200,0,0.1);
+  border: 1px solid rgba(245,200,0,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 0.95rem;
+}
+
+.avantage-title {
+  font-family: var(--inter);
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+
+.avantage-desc {
+  font-family: var(--inter);
+  font-weight: 300;
+  font-size: 0.8rem;
+  color: var(--grey);
+  line-height: 1.65;
+}
+
+/* ── EXEMPLE SCÉNARIO ── */
+.scenario-box {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--vert);
+  padding: 28px 32px;
+  margin: 40px 0;
+}
+
+.scenario-label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--vert);
+  display: block;
+  margin-bottom: 16px;
+}
+
+.scenario-text {
+  font-family: var(--inter);
+  font-weight: 300;
+  font-size: 0.92rem;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.85;
+}
+
+.scenario-text strong { color: var(--white); font-weight: 600; }
+.scenario-text .num { color: var(--vert); font-family: var(--mono); font-weight: 700; }
+
+/* ── ROLES SPLIT (qui fait quoi) ── */
+.roles-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  margin: 40px 0;
+}
+
+.role-card {
+  background: var(--card);
+  padding: 28px 26px;
+}
+
+.role-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.role-tag {
+  font-family: var(--bebas);
+  font-size: 1.5rem;
+  color: var(--white);
+}
+
+.role-list {
+  list-style: none;
+}
+
+.role-list li {
+  font-family: var(--inter);
+  font-weight: 300;
+  font-size: 0.85rem;
+  color: var(--grey);
+  line-height: 1.7;
+  padding-left: 18px;
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.role-list li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--grey-light);
+}
+
+.role-list li strong { color: var(--white); font-weight: 500; }
+
+/* ── TIMELINE ── */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 32px 0;
+}
+
+.timeline-row {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  background: var(--card);
+}
+
+.timeline-when {
+  padding: 22px 20px;
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.timeline-when-val {
+  font-family: var(--bebas);
+  font-size: 1.2rem;
+  line-height: 1;
+  color: var(--jaune);
+}
+
+.timeline-what {
+  padding: 22px 24px;
+  display: flex;
+  align-items: center;
+}
+
+.timeline-what-text {
+  font-family: var(--inter);
+  font-weight: 400;
+  font-size: 0.86rem;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.6;
+}
+
+.timeline-what-text strong { color: var(--white); font-weight: 600; }
+
+/* ── HIGHLIGHT BOX ── */
+.highlight-box {
+  background: rgba(245,200,0,0.05);
+  border: 1px solid rgba(245,200,0,0.15);
+  border-left: 3px solid var(--jaune);
+  padding: 22px 26px;
+  margin-top: 32px;
+}
+
+.highlight-box-text {
+  font-family: var(--inter);
+  font-weight: 300;
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.75;
+}
+.highlight-box-text strong { color: var(--jaune); font-weight: 500; }
+
+/* ── CTA FINAL ── */
+.cta-section {
+  padding: 80px 40px;
+  max-width: 880px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.cta-title {
+  font-family: var(--bebas);
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  line-height: 1;
+  color: var(--white);
+  margin-bottom: 20px;
+}
+
+.cta-body {
+  font-family: var(--inter);
+  font-weight: 300;
+  font-size: 0.95rem;
+  color: var(--grey);
+  max-width: 540px;
+  margin: 0 auto 40px;
+  line-height: 1.8;
+}
+
+.cta-contact {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--jaune);
+  padding: 28px 40px;
+}
+
+.cta-contact-line {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.55);
+}
+
+.cta-contact-line span { color: var(--white); font-weight: 700; }
+.cta-contact-line a { color: var(--cyan); text-decoration: none; letter-spacing: 0.05em; }
+
+/* ── FOOTER ── */
+.doc-footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--charcoal);
+}
+
+.doc-footer-logo {
+  font-family: var(--bebas);
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.2);
+}
+
+.doc-footer-info {
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.15);
+  text-align: right;
+}
+
+/* ── ACTIONS LIST (planning communication) ── */
+.actions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 32px 0;
+}
+
+.action-item {
+  background: var(--card);
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  align-items: start;
+}
+
+.action-timing {
+  padding: 26px 18px;
+  border-right: 1px solid var(--border);
+}
+
+.action-timing-label {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--grey-light);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.action-timing-val {
+  font-family: var(--bebas);
+  font-size: 1.3rem;
+  color: var(--jaune);
+  line-height: 1;
+}
+
+.action-body { padding: 26px 26px; }
+
+.action-title {
+  font-family: var(--inter);
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.action-desc {
+  font-family: var(--inter);
+  font-weight: 300;
+  font-size: 0.82rem;
+  color: var(--grey);
+  line-height: 1.7;
+}
+.action-desc strong { color: var(--white); font-weight: 500; }
+
+.action-badge {
+  padding: 26px 18px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.badge {
+  font-family: var(--mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  white-space: nowrap;
+  border: 1px solid;
+}
+.badge.story { color: var(--vert); border-color: rgba(95,209,42,0.3); }
+.badge.post  { color: var(--jaune); border-color: rgba(245,200,0,0.3); }
+.badge.optio { color: var(--grey-light); border-color: rgba(255,255,255,0.12); }
+
+/* ── IG POST MOCK ── */
+.ig-post-mock {
+  background: #1a1a1a;
+  border: 1px solid rgba(255,255,255,0.1);
+  max-width: 380px;
+  width: 100%;
+}
+
+.ig-post-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.ig-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--jaune), var(--rose));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--bebas);
+  font-size: 0.85rem;
+  color: var(--black);
+  flex-shrink: 0;
+}
+
+.ig-username {
+  font-family: var(--inter);
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: var(--white);
+}
+
+.ig-image-placeholder {
+  width: 100%;
+  aspect-ratio: 1;
+  background: var(--charcoal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  position: relative;
+  overflow: hidden;
+}
+
+.ig-image-placeholder::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 40%, rgba(245,200,0,0.04));
+}
+
+.ig-image-label {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.15);
+  text-align: center;
+  padding: 18px;
+  z-index: 1;
+  position: relative;
+}
+
+.ig-caption { padding: 14px 16px; }
+
+.ig-caption-user {
+  font-family: var(--inter);
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: var(--white);
+  margin-right: 6px;
+}
+
+.ig-caption-text {
+  font-family: var(--inter);
+  font-weight: 300;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.6;
+}
+
+.ig-link {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--cyan);
+  margin-top: 8px;
+  letter-spacing: 0.05em;
+}
+
+.caption-option {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--jaune);
+  padding: 16px 18px;
+  margin-bottom: 12px;
+}
+
+.caption-option-label {
+  font-family: var(--mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--jaune);
+  margin-bottom: 8px;
+  display: block;
+}
+
+.caption-option-text {
+  font-family: var(--inter);
+  font-weight: 300;
+  font-size: 0.86rem;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.7;
+  font-style: italic;
+}
+
+/* ── STORY MOCK ── */
+.story-mock {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 24px 0;
+}
+
+.story-slide {
+  background: var(--charcoal);
+  border: 1px solid var(--border);
+  width: 130px;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.story-slide::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--jaune);
+}
+
+.story-num {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-family: var(--mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.12em;
+  color: var(--grey-light);
+}
+
+.story-inner {
+  padding: 30px 12px 16px;
+  aspect-ratio: 9/16;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.story-content {
+  font-family: var(--inter);
+  font-weight: 600;
+  font-size: 0.7rem;
+  color: var(--white);
+  line-height: 1.5;
+}
+
+.story-content.big {
+  font-family: var(--bebas);
+  font-size: 1rem;
+  color: var(--jaune);
+  letter-spacing: 0.03em;
+}
+
+.story-content.link {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  color: var(--cyan);
+  letter-spacing: 0.06em;
+}
+
+.story-label {
+  font-family: var(--mono);
+  font-size: 0.48rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--grey-light);
+  margin-top: 10px;
+}
+
+/* ── DELIVERABLES ── */
+.deliverables-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  margin: 32px 0;
+}
+
+.deliverable-item {
+  background: var(--card);
+  padding: 24px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.deliverable-icon {
+  width: 34px;
+  height: 34px;
+  background: rgba(245,200,0,0.1);
+  border: 1px solid rgba(245,200,0,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 0.95rem;
+}
+
+.deliverable-title {
+  font-family: var(--inter);
+  font-weight: 600;
+  font-size: 0.86rem;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+
+.deliverable-desc {
+  font-family: var(--inter);
+  font-weight: 300;
+  font-size: 0.78rem;
+  color: var(--grey);
+  line-height: 1.6;
+}
+
+/* ── SUGGESTION BOX (idée à étudier, distincte d'un fait établi) ── */
+.suggestion-box {
+  background: rgba(95,209,42,0.04);
+  border: 1px dashed rgba(95,209,42,0.3);
+  padding: 28px 32px;
+  margin: 40px 0;
+  position: relative;
+}
+
+.suggestion-label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--vert);
+  display: inline-block;
+  margin-bottom: 16px;
+  padding: 4px 10px;
+  border: 1px solid rgba(95,209,42,0.3);
+}
+
+.suggestion-title {
+  font-family: var(--bebas);
+  font-size: 1.5rem;
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 14px;
+}
+
+.suggestion-text {
+  font-family: var(--inter);
+  font-weight: 300;
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.8;
+}
+
+.suggestion-text strong { color: var(--white); font-weight: 500; }
+
+.suggestion-example {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(95,209,42,0.15);
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--vert);
+  line-height: 1.8;
+}
+
+.suggestion-example span {
+  color: rgba(255,255,255,0.5);
+  font-family: var(--inter);
+  font-size: 0.78rem;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 700px) {
+  .cover { padding: 32px 24px; }
+  .container { padding: 56px 24px; }
+  .volets-banner { grid-template-columns: 1fr; }
+  .series-grid { grid-template-columns: 1fr; }
+  .avantage-grid { grid-template-columns: 1fr; }
+  .roles-grid { grid-template-columns: 1fr; }
+  .pricing-row { grid-template-columns: 1fr; }
+  .pricing-cell { border-right: none; border-bottom: 1px solid var(--border); }
+  .pricing-cell:last-child { border-bottom: none; }
+  .funnel-diagram { flex-direction: column; }
+  .funnel-arrow { transform: rotate(90deg); padding: 8px 0; }
+  .timeline-row { grid-template-columns: 90px 1fr; }
+  .action-item { grid-template-columns: 60px 1fr; }
+  .action-badge { display: none; }
+  .deliverables-grid { grid-template-columns: 1fr; }
+  .story-slide { width: 110px; }
+  .doc-footer { flex-direction: column; gap: 12px; text-align: center; }
+  .doc-footer-info { text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     COVER
+══════════════════════════════════════════ -->
+<section class="cover">
+  <div class="cover-bg-text">CARNIVAL × EZÉA</div>
+
+  <div class="cover-top">
+    <div class="cover-badge">Proposition de partenariat — Confidentiel</div>
+    <div class="cover-date">Juin 2026<br>Version finale</div>
+  </div>
+
+  <div class="cover-center">
+    <span class="cover-eyebrow">Proposé par Ezéa · Pour Carnival Sun Juice</span>
+    <h1 class="cover-title">
+      <span class="line-1">Deux marchés.</span>
+      <span class="line-2">Une collection.</span>
+      <span class="line-3">Comment Carnival × Ezéa génère du revenu direct et un outil de différenciation pour votre réseau pro</span>
+    </h1>
+    <p class="cover-subtitle">
+      Une collaboration avec deux leviers distincts : la vente directe aux amateurs de rhum
+      et de street art, et un objet de communication premium pour votre réseau de distribution
+      bars, restaurants et clubs.
+    </p>
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-from">
+      De : Ezéa (artiste)<br>
+      Pour : Carnival Sun Juice<br>
+      Objet : Proposition de partenariat — Collection Carnival × Ezéa
+    </div>
+    <div class="cover-confidential">
+      Document confidentiel<br>
+      Usage interne uniquement
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     INTRO — LES DEUX VOLETS
+══════════════════════════════════════════ -->
+<section class="intro-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Le principe</span>
+      <h2 class="section-title">Une collection, deux usages</h2>
+    </div>
+
+    <p class="intro-lead">
+      J'ai transformé la bouteille <em>Carnival</em> en sculpture.<br>
+      Vous avez deux façons de la faire travailler pour vous.
+    </p>
+
+    <p class="intro-body">
+      La collection Carnival × Ezéa — 5 séries, 250 pièces, résine époxy coulée à la main —
+      peut servir <strong>deux objectifs commerciaux distincts</strong> pour Carnival.
+      Le premier génère de la visibilité et du chiffre d'affaires direct auprès de votre clientèle
+      grand public. Le second transforme la sculpture en <strong>outil de différenciation</strong>
+      pour votre réseau de distribution professionnel — un objet que vos clients bars,
+      restaurants et clubs ne trouveront chez aucune autre marque de rhum.
+    </p>
+
+    <div class="volets-banner">
+      <div class="volet-tag b2c">
+        <span class="volet-num">Volet 01 — B2C</span>
+        <div class="volet-title">Vente directe<br>au particulier</div>
+        <p class="volet-desc">Landing page dédiée, lien depuis vos réseaux. Le client achète directement sa sculpture numérotée.</p>
+      </div>
+      <div class="volet-tag b2b">
+        <span class="volet-num">Volet 02 — B2B</span>
+        <div class="volet-title">Objet de différenciation<br>pour votre réseau pro</div>
+        <p class="volet-desc">Carnival achète à tarif dégressif et distribue ou offre la sculpture à ses comptes bars, restaurants, clubs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     VOLET 01 — B2C
+══════════════════════════════════════════ -->
+<section class="volet-section b2c">
+  <div class="container">
+    <div class="volet-header">
+      <span class="volet-pill b2c">Volet 01 — B2C</span>
+    </div>
+    <div class="section-header">
+      <span class="section-tag">Vente directe</span>
+      <h2 class="section-title">Le drop grand public</h2>
+    </div>
+
+    <p class="intro-body" style="margin-bottom:8px;">
+      Une collection limitée vendue directement aux amateurs de rhum, de street art
+      et à la communauté de Carnival et de JoeyStarr. <strong>La cible reste le client particulier</strong> —
+      ce n'est pas un produit dérivé, c'est un objet de collection à part entière, à 250€ la pièce.
+    </p>
+
+    <div class="cible-box">
+      <span class="cible-box-label">La cible</span>
+      <p class="cible-box-text">
+        Collectionneurs de street art, fans de la marque Carnival, communauté JoeyStarr,
+        amateurs de rhum premium sensibles à l'objet lifestyle. Une audience qui suit déjà
+        l'un des deux univers — et qui découvre l'autre par la collaboration.
+      </p>
+    </div>
+
+    <div class="series-grid">
+      <div class="serie-card drip">
+        <div class="serie-name">DRIP</div>
+        <p class="serie-desc">Coulures de résine suspendues, figées dans le temps.</p>
+      </div>
+      <div class="serie-card splash">
+        <div class="serie-name">SPLASH</div>
+        <p class="serie-desc">Éclaboussure en lévitation, illusion d'optique.</p>
+      </div>
+      <div class="serie-card brush">
+        <div class="serie-name">BRUSH</div>
+        <p class="serie-desc">Trait de pinceau étiré entre deux bouteilles.</p>
+      </div>
+      <div class="serie-card spin">
+        <div class="serie-name">SPIN</div>
+        <p class="serie-desc">Tourbillon en spirale, énergie solidifiée.</p>
+      </div>
+    </div>
+
+    <h3 style="font-family:var(--bebas);font-size:1.5rem;color:var(--white);margin:40px 0 20px;">Comment le trafic se crée</h3>
+
+    <div class="funnel-diagram">
+      <div class="funnel-step">
+        <span class="funnel-step-label">Source</span>
+        <div class="funnel-step-title">Réseaux Carnival<br>+ Ezéa + JoeyStarr</div>
+      </div>
+      <span class="funnel-arrow">→</span>
+      <div class="funnel-step">
+        <span class="funnel-step-label">Destination</span>
+        <div class="funnel-step-title">carnivalxezea.com<br>(landing dédiée)</div>
+      </div>
+      <span class="funnel-arrow">→</span>
+      <div class="funnel-step">
+        <span class="funnel-step-label">Conversion</span>
+        <div class="funnel-step-title">Réservation<br>ou achat direct</div>
+      </div>
+    </div>
+
+    <p class="intro-body">
+      Le mécanisme est simple : un lien unique, une page de vente brandée aux deux identités,
+      un stock affiché en temps réel pour créer l'urgence (250 pièces, non rééditées).
+      Carnival relaie depuis ses propres comptes vers cette page — exactement comme
+      n'importe quel partenariat de collection limitée, sans complexité technique
+      de votre côté.
+    </p>
+
+    <h3 style="font-family:var(--bebas);font-size:1.5rem;color:var(--white);margin:48px 0 12px;">Le plan de communication détaillé</h3>
+    <p class="intro-body" style="margin-bottom:8px;">
+      Quatre actions, réparties entre le compte Carnival, le compte personnel de JoeyStarr
+      (en tant que levier de communication de Carnival) et la page Carnival. Tout le contenu
+      est produit par Ezéa et livré prêt à poster — <strong>aucune charge de création
+      côté Carnival.</strong>
+    </p>
+
+    <div class="actions-list">
+
+      <div class="action-item">
+        <div class="action-timing">
+          <span class="action-timing-label">Quand</span>
+          <span class="action-timing-val">J-7</span>
+        </div>
+        <div class="action-body">
+          <div class="action-title">Story teaser — compte JoeyStarr</div>
+          <div class="action-desc">
+            Une story courte. <strong>Le produit n'est pas encore montré</strong> — juste un
+            fragment, la sculpture de dos ou un gros plan sur la résine. Aucun texte nécessaire.
+            Objectif : créer la question "c'est quoi ça ?" avant le lancement.
+          </div>
+        </div>
+        <div class="action-badge"><span class="badge story">Story · JoeyStarr</span></div>
+      </div>
+
+      <div class="action-item">
+        <div class="action-timing">
+          <span class="action-timing-label">Quand</span>
+          <span class="action-timing-val">J-0</span>
+        </div>
+        <div class="action-body">
+          <div class="action-title">Post de lancement — page Carnival + compte JoeyStarr</div>
+          <div class="action-desc">
+            <strong>Le post principal, simultané sur les deux comptes, entre 18h et 20h.</strong>
+            Carousel 3 slides ou vidéo courte. Caption fournie, lien carnivalxezea.com en bio.
+            La simultanéité est ce qui fait se croiser les deux audiences — c'est le point
+            le plus important du plan.
+          </div>
+        </div>
+        <div class="action-badge"><span class="badge post">Post · 2 comptes</span></div>
+      </div>
+
+      <div class="action-item">
+        <div class="action-timing">
+          <span class="action-timing-label">Quand</span>
+          <span class="action-timing-val">J-0</span>
+        </div>
+        <div class="action-body">
+          <div class="action-title">3 stories de lancement — compte JoeyStarr</div>
+          <div class="action-desc">
+            Juste après le post : vidéo brute de la sculpture, puis un slide chiffres clés,
+            puis un sticker lien direct. Les 3 slides sont livrés prêts à importer.
+          </div>
+        </div>
+        <div class="action-badge"><span class="badge story">3 Stories · JoeyStarr</span></div>
+      </div>
+
+      <div class="action-item">
+        <div class="action-timing">
+          <span class="action-timing-label">Quand</span>
+          <span class="action-timing-val">J+3</span>
+        </div>
+        <div class="action-body">
+          <div class="action-title">Story décompte — si pièces restantes</div>
+          <div class="action-desc">
+            Un screenshot du compteur de pièces restantes sur la landing page.
+            <strong>Aucun texte nécessaire</strong> — l'urgence parle d'elle-même.
+            Si la collection est épuisée avant, cette story devient "sold out".
+          </div>
+        </div>
+        <div class="action-badge"><span class="badge optio">Optionnel selon stock</span></div>
+      </div>
+
+    </div>
+
+    <h3 style="font-family:var(--bebas);font-size:1.5rem;color:var(--white);margin:48px 0 20px;">Le contenu exact, prêt à poster</h3>
+
+    <div style="display:flex; gap:28px; flex-wrap:wrap; align-items:flex-start; margin-bottom:32px;">
+      <div class="ig-post-mock">
+        <div class="ig-post-header">
+          <div class="ig-avatar">JS</div>
+          <div class="ig-username">@joeystarr_officiel</div>
+        </div>
+        <div class="ig-image-placeholder">
+          <div class="ig-image-label">
+            Slide 1 : Sculpture en gros plan, fond sombre<br><br>
+            Slide 2 : Process Ezéa — résine en coulée<br><br>
+            Slide 3 : Logo Carnival × Ezéa + lien
+          </div>
+        </div>
+        <div class="ig-caption">
+          <span class="ig-caption-user">joeystarr_officiel</span>
+          <span class="ig-caption-text">On a fait quelque chose. Carnival en sculpture street art. Ezéa à la main. 250 pièces, pas une de plus. Le lien est en bio.</span>
+          <a class="ig-link">carnivalxezea.com</a>
+        </div>
+      </div>
+
+      <div style="flex:1; min-width:220px;">
+        <p style="font-family:var(--mono);font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--jaune);margin-bottom:14px;">2 options de caption fournies</p>
+
+        <div class="caption-option">
+          <span class="caption-option-label">Option A — Direct</span>
+          <p class="caption-option-text">"On a fait quelque chose. Carnival en sculpture street art. Ezéa à la main. 250 pièces, pas une de plus. Le lien est en bio."</p>
+        </div>
+
+        <div class="caption-option" style="border-left-color:var(--cyan);">
+          <span class="caption-option-label" style="color:var(--cyan);">Option B — Factuel</span>
+          <p class="caption-option-text">"Carnival × Ezéa. 5 séries. 250 sculptures. Résine coulée à la main. Numérotées. carnivalxezea.com"</p>
+        </div>
+
+        <p style="font-family:var(--inter);font-weight:300;font-size:0.76rem;color:var(--grey);margin-top:14px;line-height:1.7;">
+          Carnival et JoeyStarr choisissent l'option ou la réécrivent dans leur voix —
+          l'essentiel est la simultanéité des deux publications.
+        </p>
+      </div>
+    </div>
+
+    <p style="font-family:var(--mono);font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--jaune);margin-bottom:14px;">Les 3 stories — prêtes à importer</p>
+
+    <div class="story-mock">
+      <div class="story-slide">
+        <span class="story-num">01/03</span>
+        <div class="story-inner">
+          <div class="story-content">Vidéo brute<br>de la sculpture<br>5 à 8 secondes<br><br>Pas de texte.</div>
+          <div class="story-label">Vidéo fournie</div>
+        </div>
+      </div>
+      <div class="story-slide">
+        <span class="story-num">02/03</span>
+        <div class="story-inner">
+          <div class="story-content big">250 PIÈCES<br>CARNIVAL<br>× EZÉA</div>
+          <div class="story-content" style="margin-top:10px;font-size:0.6rem;color:var(--grey);">Non rééditée.</div>
+          <div class="story-label">Slide fourni</div>
+        </div>
+      </div>
+      <div class="story-slide">
+        <span class="story-num">03/03</span>
+        <div class="story-inner">
+          <div class="story-content" style="font-size:0.62rem;color:var(--grey);margin-bottom:8px;">Sticker lien</div>
+          <div class="story-content link">carnivalxezea.com</div>
+          <div class="story-label">Slide fourni</div>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="font-family:var(--bebas);font-size:1.5rem;color:var(--white);margin:48px 0 20px;">Ce qu'Ezéa fournit — tout est prêt</h3>
+
+    <div class="deliverables-grid">
+      <div class="deliverable-item">
+        <div class="deliverable-icon">🎨</div>
+        <div>
+          <div class="deliverable-title">Visuels carrousel (3 slides)</div>
+          <div class="deliverable-desc">Prêts à poster. Format 1:1, 1080×1080px. Logos, sculptures, lien intégré.</div>
+        </div>
+      </div>
+      <div class="deliverable-item">
+        <div class="deliverable-icon">🎬</div>
+        <div>
+          <div class="deliverable-title">Vidéo 15-30 sec montée</div>
+          <div class="deliverable-desc">Process de fabrication et sculptures. Sous-titrée, prête pour post ou story.</div>
+        </div>
+      </div>
+      <div class="deliverable-item">
+        <div class="deliverable-icon">📱</div>
+        <div>
+          <div class="deliverable-title">3 slides stories</div>
+          <div class="deliverable-desc">Format 9:16. Prêts à importer directement dans Instagram.</div>
+        </div>
+      </div>
+      <div class="deliverable-item">
+        <div class="deliverable-icon">✍️</div>
+        <div>
+          <div class="deliverable-title">2 captions rédigées</div>
+          <div class="deliverable-desc">Dans la voix de la marque et de JoeyStarr. À choisir ou réécrire librement.</div>
+        </div>
+      </div>
+      <div class="deliverable-item">
+        <div class="deliverable-icon">🔗</div>
+        <div>
+          <div class="deliverable-title">Le lien unique</div>
+          <div class="deliverable-desc">carnivalxezea.com — à intégrer en bio le jour J sur les deux comptes.</div>
+        </div>
+      </div>
+      <div class="deliverable-item">
+        <div class="deliverable-icon">📅</div>
+        <div>
+          <div class="deliverable-title">Planning coordonné</div>
+          <div class="deliverable-desc">Date, heure et ordre de publication calés à l'avance entre les deux comptes.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p class="highlight-box-text">
+        <strong>Temps total demandé côté Carnival / JoeyStarr :</strong> publication de
+        5 contenus sur 10 jours, environ 30 minutes au total. Toute la production —
+        visuels, montage, rédaction — est assurée par Ezéa en amont.
+      </p>
+    </div>
+
+    <div class="highlight-box">
+      <p class="highlight-box-text">
+        <strong>Ce que ça apporte à Carnival :</strong> une exposition produit originale
+        auprès de votre communauté, sans charge de production ni de logistique — Ezéa
+        gère la fabrication, l'expédition et le service client de bout en bout.
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     VOLET 02 — B2B
+══════════════════════════════════════════ -->
+<section class="volet-section b2b">
+  <div class="container">
+    <div class="volet-header">
+      <span class="volet-pill b2b">Volet 02 — B2B</span>
+    </div>
+    <div class="section-header">
+      <span class="section-tag">Outil de différenciation</span>
+      <h2 class="section-title">L'objet pour votre réseau pro</h2>
+    </div>
+
+    <p class="intro-body">
+      Sur l'étagère d'un bar, derrière un comptoir, dans une vitrine de restaurant —
+      la bouteille Carnival classique se fond dans la masse des autres rhums.
+      <strong>La sculpture Carnival × Ezéa ne se fond dans rien.</strong> Elle questionne,
+      elle arrête le regard, elle devient un sujet de conversation entre le barman
+      et le client. C'est un actif de communication que vous possédez et que vos
+      concurrents ne peuvent pas reproduire.
+    </p>
+
+    <div class="cible-box jaune">
+      <span class="cible-box-label">L'avantage business</span>
+      <p class="cible-box-text">
+        <strong>Carnival porte directement la relation commerciale</strong> avec son réseau
+        de distribution existant — bars, restaurants, clubs. Vous achetez les sculptures
+        à tarif professionnel dégressif et décidez de votre propre stratégie : les offrir
+        à vos meilleurs comptes, les vendre avec une marge, ou les réserver à vos
+        établissements partenaires premium.
+      </p>
+    </div>
+
+    <h3 style="font-family:var(--bebas);font-size:1.5rem;color:var(--white);margin:48px 0 8px;">Tarif professionnel dégressif</h3>
+    <p style="font-family:var(--inter);font-weight:300;font-size:0.85rem;color:var(--grey);margin-bottom:8px;">
+      Mêmes 5 séries que le drop grand public — DRIP, SPLASH, BRUSH, SPIN + une 5ème série. Tarif HT, hors frais de transport.
+    </p>
+
+    <div class="pricing-table">
+      <div class="pricing-row header">
+        <div class="pricing-cell">Volume</div>
+        <div class="pricing-cell">Prix unitaire HT</div>
+        <div class="pricing-cell">Comparé au prix public</div>
+      </div>
+
+      <div class="pricing-row tier">
+        <div class="pricing-cell">
+          <span class="pricing-volume">1 — 10</span>
+          <span class="pricing-volume-label">exemplaires</span>
+        </div>
+        <div class="pricing-cell">
+          <span class="pricing-price">190€</span>
+          <span class="pricing-price-sub">par pièce, HT</span>
+        </div>
+        <div class="pricing-cell">
+          <span class="pricing-savings">Soit <strong>24% sous le tarif public</strong> de 250€</span>
+        </div>
+      </div>
+
+      <div class="pricing-row tier">
+        <div class="pricing-cell">
+          <span class="pricing-volume">10 — 50</span>
+          <span class="pricing-volume-label">exemplaires</span>
+        </div>
+        <div class="pricing-cell">
+          <span class="pricing-price">170€</span>
+          <span class="pricing-price-sub">par pièce, HT</span>
+        </div>
+        <div class="pricing-cell">
+          <span class="pricing-savings">Soit <strong>32% sous le tarif public</strong> de 250€</span>
+        </div>
+      </div>
+
+      <div class="pricing-row tier">
+        <div class="pricing-cell">
+          <span class="pricing-volume">50+</span>
+          <span class="pricing-volume-label">exemplaires</span>
+        </div>
+        <div class="pricing-cell">
+          <span class="pricing-price">~150€</span>
+          <span class="pricing-price-sub">par pièce, HT — à confirmer ensemble</span>
+        </div>
+        <div class="pricing-cell">
+          <span class="pricing-savings">Soit <strong>40% sous le tarif public</strong> de 250€</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="scenario-box">
+      <span class="scenario-label">Exemple de scénario</span>
+      <p class="scenario-text">
+        Carnival commande <strong>30 sculptures</strong> à <span class="num">170€ HT</span> pour équiper
+        ses 30 meilleurs comptes bars/restaurants en France — une par établissement,
+        offerte ou intégrée à un programme de fidélisation distributeur.
+        Coût total : <strong>5 100€ HT</strong> pour un objet de communication unique,
+        non disponible ailleurs, qui reste visible sur le comptoir pendant des mois
+        et génère une conversation avec chaque client qui le remarque.
+      </p>
+    </div>
+
+    <div class="suggestion-box">
+      <span class="suggestion-label">Suggestion — à étudier ensemble</span>
+      <div class="suggestion-title">Transformer la sculpture en levier contractuel</div>
+      <p class="suggestion-text">
+        Une piste à creuser : conditionner l'offre d'une sculpture à un engagement
+        commercial de l'établissement plutôt que d'en faire un simple cadeau.
+        <strong>Un client pro qui signe un contrat de volume avec Carnival
+        (référencement, quantité d'achat annuelle, exclusivité de gamme)
+        reçoit une sculpture en remerciement</strong> — l'objet devient alors la
+        contrepartie visible d'un engagement, pas juste un goodies.
+      </p>
+      <div class="suggestion-example">
+        Exemple : <span>"Tout établissement signant un contrat de référencement
+        Carnival sur 12 mois reçoit une sculpture Carnival × Ezéa offerte."</span>
+      </div>
+      <p class="suggestion-text" style="margin-top:18px;">
+        L'avantage : le coût de la sculpture (170€ ou 190€ HT selon le palier)
+        s'absorbe naturellement dans la valeur du contrat signé, et l'objet
+        devient un argument de négociation commerciale plutôt qu'une dépense
+        de communication isolée. C'est une option parmi d'autres — Carnival
+        reste libre de l'usage qu'il fait des sculptures selon sa propre
+        stratégie de distribution.
+      </p>
+    </div>
+
+    <h3 style="font-family:var(--bebas);font-size:1.5rem;color:var(--white);margin:48px 0 20px;">Pourquoi c'est un bon calcul pour Carnival</h3>
+
+    <div class="avantage-grid">
+      <div class="avantage-item">
+        <div class="avantage-icon">★</div>
+        <div>
+          <div class="avantage-title">Différenciation sur étagère</div>
+          <div class="avantage-desc">Aucune autre marque de rhum n'a un objet sculptural signé par un artiste street art reconnu sur le point de vente.</div>
+        </div>
+      </div>
+      <div class="avantage-item">
+        <div class="avantage-icon">★</div>
+        <div>
+          <div class="avantage-title">Conversation déclenchée</div>
+          <div class="avantage-desc">Un objet qui interroge incite le barman à raconter l'histoire Carnival — c'est du marketing conversationnel gratuit, à chaque service.</div>
+        </div>
+      </div>
+      <div class="avantage-item">
+        <div class="avantage-icon">★</div>
+        <div>
+          <div class="avantage-title">Levier de fidélisation distributeur</div>
+          <div class="avantage-desc">Offrir une pièce numérotée à un compte stratégique renforce la relation bien au-delà d'une remise commerciale classique.</div>
+        </div>
+      </div>
+      <div class="avantage-item">
+        <div class="avantage-icon">★</div>
+        <div>
+          <div class="avantage-title">Zéro charge de production</div>
+          <div class="avantage-desc">Ezéa fabrique, numérote et livre. Carnival gère uniquement la relation avec ses comptes, comme pour n'importe quel produit de sa gamme.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     QUI FAIT QUOI
+══════════════════════════════════════════ -->
+<section class="volet-section" style="background:var(--black);">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">La répartition</span>
+      <h2 class="section-title">Qui fait quoi</h2>
+    </div>
+
+    <div class="roles-grid">
+      <div class="role-card">
+        <div class="role-card-header">
+          <span class="role-tag" style="color:var(--cyan);">Ezéa</span>
+        </div>
+        <ul class="role-list">
+          <li><strong>Fabrication</strong> des sculptures, toutes séries et volumes confondus</li>
+          <li><strong>Landing page</strong> carnivalxezea.com — conception et hébergement</li>
+          <li><strong>Logistique B2C</strong> — gestion des commandes, expédition, SAV particuliers</li>
+          <li><strong>Certificats d'authenticité</strong> et numérotation de chaque pièce</li>
+          <li><strong>Production des commandes B2B</strong> selon les volumes Carnival</li>
+        </ul>
+      </div>
+      <div class="role-card">
+        <div class="role-card-header">
+          <span class="role-tag" style="color:var(--jaune);">Carnival</span>
+        </div>
+        <ul class="role-list">
+          <li><strong>Relais</strong> vers la landing page depuis ses réseaux (volet B2C)</li>
+          <li><strong>Activation JoeyStarr</strong> comme levier de communication du lancement</li>
+          <li><strong>Distribution B2B</strong> — Carnival porte la relation commerciale avec son réseau de bars, restaurants, clubs</li>
+          <li><strong>Choix du volume</strong> et de la stratégie de déploiement auprès de ses comptes pro</li>
+          <li><strong>Commande</strong> et règlement selon le tarif dégressif convenu</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p class="highlight-box-text">
+        <strong>Ce qui ne change pas entre les deux volets :</strong> Ezéa reste le seul
+        fabricant et garant de la qualité et de l'authenticité de chaque pièce, sur les
+        deux marchés. Carnival décide librement de l'usage qu'il fait du volet B2B —
+        Ezéa n'intervient pas dans la relation avec vos comptes professionnels.
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     PROCHAINES ÉTAPES
+══════════════════════════════════════════ -->
+<section class="volet-section" style="background:var(--charcoal);">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">La suite</span>
+      <h2 class="section-title">Prochaines étapes</h2>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-row">
+        <div class="timeline-when"><span class="timeline-when-val">01</span></div>
+        <div class="timeline-what">
+          <div class="timeline-what-text"><strong>Validation du principe</strong> — Carnival confirme son intérêt pour l'un ou les deux volets.</div>
+        </div>
+      </div>
+      <div class="timeline-row">
+        <div class="timeline-when"><span class="timeline-when-val">02</span></div>
+        <div class="timeline-what">
+          <div class="timeline-what-text"><strong>Cadrage B2C</strong> — date de lancement, brief JoeyStarr pour l'activation communication.</div>
+        </div>
+      </div>
+      <div class="timeline-row">
+        <div class="timeline-when"><span class="timeline-when-val">03</span></div>
+        <div class="timeline-what">
+          <div class="timeline-what-text"><strong>Cadrage B2B</strong> — volume estimé par Carnival, confirmation du palier tarifaire et des délais de fabrication.</div>
+        </div>
+      </div>
+      <div class="timeline-row">
+        <div class="timeline-when"><span class="timeline-when-val">04</span></div>
+        <div class="timeline-what">
+          <div class="timeline-what-text"><strong>Lancement coordonné</strong> — mise en ligne de la landing page et premières livraisons B2B en parallèle.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     CTA FINAL
+══════════════════════════════════════════ -->
+<div class="cta-section">
+  <h2 class="cta-title">On en discute ?</h2>
+  <p class="cta-body">
+    Cette proposition est une base de travail. Le volume B2B, les délais et les modalités
+    de paiement se calent ensemble selon vos besoins de distribution.
+  </p>
+
+  <div class="cta-contact">
+    <div class="cta-contact-line">Contact : <span>Ezéa</span></div>
+    <div class="cta-contact-line">Email : <span><a href="mailto:contact@ezea.fr">contact@ezea.fr</a></span></div>
+    <div class="cta-contact-line">Instagram : <span><a href="https://instagram.com/ezea" target="_blank">@ezea</a></span></div>
+    <div class="cta-contact-line">Site : <span><a href="https://ezea.fr" target="_blank">ezea.fr</a></span></div>
+  </div>
+</div>
+
+
+<footer class="doc-footer">
+  <div class="doc-footer-logo">Carnival × Ezéa — Proposition de partenariat 2026</div>
+  <div class="doc-footer-info">
+    Document confidentiel · Usage interne<br>
+    Ezéa · La Gaude, Alpes-Maritimes · ezea.fr
+  </div>
+</footer>
+
+</body>
+</html>
