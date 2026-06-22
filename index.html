@@ -651,40 +651,32 @@ img[src=""],img:not([src]){min-height:1px;}
   position:fixed;inset:0;z-index:800;
   background:rgba(0,0,0,0.93);
   display:flex;align-items:center;justify-content:center;padding:20px;
-  overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;
   opacity:0;pointer-events:none;transition:opacity .25s ease;
 }
 #modal.open{opacity:1;pointer-events:all;}
 .modal-card{
   max-width:500px;width:100%;
-  max-height:min(92dvh,900px);
-  display:flex;flex-direction:column;
+  max-height:min(90dvh,900px);
   background:var(--gris-chaud);
   border:1px solid rgba(255,255,255,0.08);
   border-top:3px solid var(--accent);
-  padding:48px 40px;position:relative;
+  padding:48px 40px 32px;position:relative;
   transform:translateY(28px);
   transition:transform .3s cubic-bezier(0.4,0,0.2,1);
-  overflow:hidden;
-  margin:auto 0;
+  overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;
+  touch-action:pan-y;
 }
-#form-content{
-  flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden;
-}
-#modal-step-number{
-  flex:1;min-height:0;display:none;flex-direction:column;overflow:hidden;
-}
-.modal-step-scroll{
-  flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;
-  overscroll-behavior:contain;padding-right:2px;
-}
+#modal.open .modal-card{transform:translateY(0);}
+#form-content[hidden]{display:none !important;}
+#modal-step-number{display:none;}
+#modal-step-number.is-active{display:block;}
 .modal-step-footer{
-  flex-shrink:0;padding-top:16px;margin-top:8px;
+  position:sticky;bottom:0;z-index:3;
+  margin:20px -40px -32px;padding:16px 40px calc(20px + env(safe-area-inset-bottom,0));
+  background:linear-gradient(to top,var(--gris-chaud) 78%,rgba(26,26,26,0));
   border-top:1px solid rgba(255,255,255,0.08);
-  padding-bottom:env(safe-area-inset-bottom,0);
 }
 .modal-step-footer .modal-btn{margin-top:0;}
-#modal.open .modal-card{transform:translateY(0);}
 .modal-close{
   position:absolute;top:18px;right:22px;
   font-family:'Space Mono',monospace;font-size:1.4rem;line-height:1;
@@ -755,7 +747,11 @@ img[src=""],img:not([src]){min-height:1px;}
   max-width:100%;gap:8px;margin-top:16px;
   grid-template-columns:repeat(5,1fr);
 }
-#modal-piece-grid .piece-cell{font-size:.88rem;min-height:44px;}
+#modal-piece-grid .piece-cell{
+  font-size:.88rem;min-height:44px;min-width:0;
+  cursor:pointer;touch-action:manipulation;
+  -webkit-tap-highlight-color:rgba(255,255,255,0.12);
+}
 .cart-textarea{resize:vertical;min-height:72px;line-height:1.5;}
 .cart-shipping-row{
   display:flex;justify-content:space-between;align-items:center;
@@ -925,17 +921,20 @@ body.cursor-hover #cursor-ring{transform:scale(1.5);border-color:var(--accent);b
   .atelier-text{bottom:24px;left:20px;right:20px;}
   #modal{align-items:flex-end;padding:0;}
   .modal-card{
-    max-height:94dvh;padding:28px 20px 0;margin:0;
+    max-height:96dvh;width:100%;max-width:100%;
+    padding:24px 20px 0;margin:0;
     border-left:none;border-right:none;border-bottom:none;
+    border-radius:14px 14px 0 0;
+    transform:none !important;
   }
   #modal-step-number .modal-sub{margin-bottom:16px;}
   .modal-step-footer{
-    padding:14px 0 calc(16px + env(safe-area-inset-bottom,0));
-    margin:0 -20px;padding-left:20px;padding-right:20px;
+    margin:16px -20px 0;
+    padding:14px 20px calc(16px + env(safe-area-inset-bottom,0));
     background:var(--gris-chaud);
   }
   #modal-piece-grid{grid-template-columns:repeat(5,1fr);gap:6px;}
-  #modal-piece-grid .piece-cell{font-size:.78rem;min-height:42px;}
+  #modal-piece-grid .piece-cell{font-size:.78rem;min-height:46px;}
   #faq{padding:60px 20px;}
   #footer{padding:40px 20px;}
   .footer-row{flex-direction:column;gap:32px;text-align:left;}
@@ -1173,17 +1172,15 @@ Un symbole rare de fête, de liberté et de créativité.</p>
         </p>
       </div>
 
-      <div id="modal-step-number" style="display:none;">
+      <div id="modal-step-number">
         <button type="button" class="modal-btn-secondary" id="modal-back">← Retour</button>
-        <div class="modal-step-scroll">
-          <h3>CHOISISSEZ VOTRE NUMÉRO</h3>
-          <p class="modal-sub" id="modal-piece-sub">—</p>
-          <div class="piece-grid" id="modal-piece-grid"></div>
-          <div class="piece-legend" style="margin-top:20px;margin-bottom:8px;">
-            <span><i class="lg lg-free"></i> Disponible</span>
-            <span><i class="lg lg-sel"></i> Votre choix</span>
-            <span><i class="lg lg-taken"></i> Réservé</span>
-          </div>
+        <h3>CHOISISSEZ VOTRE NUMÉRO</h3>
+        <p class="modal-sub" id="modal-piece-sub">—</p>
+        <div class="piece-grid" id="modal-piece-grid"></div>
+        <div class="piece-legend" style="margin-top:20px;margin-bottom:8px;">
+          <span><i class="lg lg-free"></i> Disponible</span>
+          <span><i class="lg lg-sel"></i> Votre choix</span>
+          <span><i class="lg lg-taken"></i> Réservé</span>
         </div>
         <div class="modal-step-footer">
           <button type="button" class="modal-btn" id="modal-add-cart" disabled>AJOUTER AU PANIER</button>
@@ -1813,12 +1810,34 @@ let modalSelectedSerie = null;
 let modalSelectedColor = null;
 let modalSelectedPiece = null;
 
+let modalScrollY = 0;
+
+function lockBodyScroll(){
+  modalScrollY = window.scrollY || document.documentElement.scrollTop;
+  document.body.style.position = 'fixed';
+  document.body.style.top = '-' + modalScrollY + 'px';
+  document.body.style.left = '0';
+  document.body.style.right = '0';
+  document.body.style.width = '100%';
+  document.body.style.overflow = 'hidden';
+}
+
+function unlockBodyScroll(){
+  document.body.style.position = '';
+  document.body.style.top = '';
+  document.body.style.left = '';
+  document.body.style.right = '';
+  document.body.style.width = '';
+  document.body.style.overflow = '';
+  window.scrollTo(0, modalScrollY);
+}
+
 function showModalStep(step){
-  modalStepColor.style.display = step === 'color' ? 'block' : 'none';
-  modalStepNumber.style.display = step === 'number' ? 'flex' : 'none';
+  modalStepColor.hidden = step !== 'color';
+  modalStepNumber.classList.toggle('is-active', step === 'number');
   if (step === 'number'){
-    const scroll = modalStepNumber.querySelector('.modal-step-scroll');
-    if (scroll) scroll.scrollTop = 0;
+    const card = modal.querySelector('.modal-card');
+    if (card) card.scrollTop = 0;
   }
 }
 
@@ -1846,18 +1865,20 @@ function openAddModal(serie, color){
   modalSelectedPiece = null;
   selSerie.value = modalSelectedSerie;
   updateModalSwatches(modalSelectedColor);
-  showModalStep('color');
-  formContent.style.display = 'block';
+  formContent.hidden = false;
   modalSuccess.classList.remove('show');
+  showModalStep('color');
   modal.classList.add('open');
-  document.body.style.overflow = 'hidden';
+  lockBodyScroll();
 }
 
 function closeModal(){
   modal.classList.remove('open');
-  document.body.style.overflow = '';
+  unlockBodyScroll();
   showModalStep('color');
   modalSelectedPiece = null;
+  formContent.hidden = false;
+  modalSuccess.classList.remove('show');
 }
 
 function renderModalGrid(){
@@ -1890,7 +1911,8 @@ function renderModalGrid(){
       cell.setAttribute('aria-label', 'Pièce ' + n + ' réservée');
     } else {
       cell.setAttribute('aria-label', 'Choisir la pièce ' + n);
-      cell.addEventListener('click', () => {
+      cell.addEventListener('click', (e) => {
+        e.preventDefault();
         modalSelectedPiece = n;
         modalPieceGrid.querySelectorAll('.piece-cell.selected').forEach(c => c.classList.remove('selected'));
         cell.classList.add('selected');
@@ -1943,8 +1965,10 @@ modalAddCartBtn.addEventListener('click', () => {
     openCart();
     return;
   }
-  formContent.style.display = 'none';
+  formContent.hidden = true;
   modalSuccess.classList.add('show');
+  const card = modal.querySelector('.modal-card');
+  if (card) card.scrollTop = 0;
 });
 
 document.querySelectorAll('[data-open-modal]').forEach(btn => {
@@ -1956,6 +1980,7 @@ document.getElementById('success-close').addEventListener('click', () => {
   openCart();
 });
 modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+modal.querySelector('.modal-card').addEventListener('click', (e) => { e.stopPropagation(); });
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
 });
